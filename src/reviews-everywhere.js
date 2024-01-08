@@ -6,9 +6,9 @@ const reviewWithOverlay = {
     review: {
         text: "These eggs are pretty goofy!",
     },
-    overlay: {
+    position: {
         top: "543px",
-        left: "442px",
+        left: "100px",
     }
 }
 

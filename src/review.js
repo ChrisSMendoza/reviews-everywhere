@@ -1,10 +1,10 @@
 import van from "vanjs-core";
 
-export function OverlayReview({ review, overlay }) {
+export function OverlayReview({ review, position }) {
 
     return Overlay({
         children: Review({ review }),
-        ...overlay
+        position
     })
 }
 
@@ -18,15 +18,15 @@ export function Review(props) {
     return review;
 }
 
-export function Overlay(props) {
+export function Overlay({ children, position }) {
     const { div } = van.tags;
 
     const overlay = div({
         class: 'overlay-review'
-    }, props.children);
+    }, children);
 
-    overlay.style.top = props.top;
-    overlay.style.left = props.left;
+    overlay.style.top = position.top;
+    overlay.style.left = position.left;
 
     return overlay;
 }
