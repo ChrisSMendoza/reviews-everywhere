@@ -1,5 +1,5 @@
 // import './style.css'
-import "./src/reviews-everywhere.js";
+import "./reviews-everywhere.js";
 
 document.querySelector('#app').innerHTML = `
   <div>
