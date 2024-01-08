@@ -1,18 +1,6 @@
-import van from "vanjs-core"
+import van from "vanjs-core";
 
-function Review(props) {
-    const { p } = van.tags
-    
-    const review = p({
-        textContent: props.review.text,
-        class: 'overlay-review'
-    })
-
-    review.style.top = props.review.top;
-    review.style.left = props.review.left;
-
-    return review;
-}
+import { Review } from "./review";
 
 // TODO: Check the URL against saved reviews
 // alert(`This page's URL: ${window.location.href}`);
