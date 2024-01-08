@@ -5,20 +5,12 @@ function Review(props) {
     
     const review = p({
         textContent: props.review.text,
+        class: 'overlay-review'
     })
-    
+
     review.style.top = props.review.top;
     review.style.left = props.review.left;
-    review.style.position = "absolute";
 
-    // Should only be done if it has a position
-    // reviewOverlay.style.top = review.top;
-    // reviewOverlay.style.left = review.left;
-    // reviewOverlay.style.position = "absolute";
-    // TODO: Think about a sensible value
-    // reviewOverlay.style.zIndex = "99";
-
-    // reviewOverlay.style.backgroundColor = "white";
     return review;
 }
 
