@@ -2,7 +2,7 @@ import van from "vanjs-core";
 
 import { OverlayReview } from "./review";
 
-const reviewWithOverlay = {
+const overlayReview = {
     review: {
         text: "These eggs are pretty goofy!",
     },
@@ -12,4 +12,4 @@ const reviewWithOverlay = {
     }
 }
 
-van.add(document.body, OverlayReview(reviewWithOverlay))
+van.add(document.body, OverlayReview(overlayReview))
