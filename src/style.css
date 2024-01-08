@@ -1,0 +1,7 @@
+
+.overlay-review {
+    position: absolute;
+    z-index: 99;
+
+    background-color: white;
+}
