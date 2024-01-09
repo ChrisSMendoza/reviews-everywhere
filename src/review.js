@@ -19,13 +19,12 @@ export function OverlayReview({ review, position }) {
  * @returns
  */
 export function Review({ review }) {
-    const { p } = van.tags
+    const { div, p } = van.tags
     
-    const reviewText = p({
-        textContent: review.text,
-    });
+    const reviewText = p({ textContent: review.text });
+    const reviewStars = ReviewStars(review);
 
-    return reviewText;
+    return div({}, reviewText, reviewStars);
 }
 
 export function Overlay({ children, position }) {
