@@ -5,6 +5,7 @@ import { OverlayReview } from "./review";
 const overlayReview = {
     review: {
         text: "These eggs are pretty goofy!",
+        stars: 3
     },
     position: {
         top: "543px",
@@ -12,4 +13,4 @@ const overlayReview = {
     }
 }
 
-van.add(document.body, OverlayReview(overlayReview))
+van.add(document.body, OverlayReview(overlayReview));
