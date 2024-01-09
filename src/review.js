@@ -13,14 +13,19 @@ export function OverlayReview({ review, position }) {
     })
 }
 
-export function Review(props) {
+/**
+ *
+ * @param {{ review: Review }} props
+ * @returns
+ */
+export function Review({ review }) {
     const { p } = van.tags
     
-    const review = p({
-        textContent: props.review.text,
-    })
+    const reviewText = p({
+        textContent: review.text,
+    });
 
-    return review;
+    return reviewText;
 }
 
 export function Overlay({ children, position }) {
@@ -39,6 +44,7 @@ export function Overlay({ children, position }) {
 /**
  * @typedef {Object} Review
  * @property {string} text - What the user had to say
+ * @property {number} stars - Number of stars, out of 5
  */
 
 /**

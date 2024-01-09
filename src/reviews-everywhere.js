@@ -5,6 +5,7 @@ import { OverlayReview } from "./review";
 const overlayReview = {
     review: {
         text: "These eggs are pretty goofy!",
+        stars: 4
     },
     position: {
         top: "543px",
