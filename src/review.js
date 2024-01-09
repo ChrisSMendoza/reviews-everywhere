@@ -1,5 +1,10 @@
 import van from "vanjs-core";
 
+/**
+ *
+ * @param {OverlayReviewProps} props
+ * @returns
+ */
 export function OverlayReview({ review, position }) {
 
     return Overlay({
@@ -30,3 +35,20 @@ export function Overlay({ children, position }) {
 
     return overlay;
 }
+
+/**
+ * @typedef {Object} Review
+ * @property {string} text - What the user had to say
+ */
+
+/**
+ * @typedef {Object} Position
+ * @property {CSSStyleDeclaration.top} top - Offset from top of the screen
+ * @property {CSSStyleDeclaration.left} left - Offset from left side of screen
+ */
+
+/**
+ * @typedef {Object} OverlayReviewProps
+ * @property {Review} review
+ * @property {Position} position
+ */
