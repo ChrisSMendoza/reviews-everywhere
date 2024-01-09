@@ -14,4 +14,4 @@ const overlayReview = {
 }
 
 van.add(document.body, OverlayReview(overlayReview));
-van.add(document.body, ReviewStars({ stars: 5 }));
+van.add(document.body, ReviewStars({ stars: 3 }));

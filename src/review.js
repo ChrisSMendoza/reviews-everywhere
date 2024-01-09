@@ -82,10 +82,15 @@ export const StarSolid = () => svg({ viewBox: "0 0 24 24", fill: "currentColor",
  * @param {{ stars: number }} props
  */
 export function ReviewStars({ stars }) {
+    const MAX_NUM_STARS = 5;
     const starsRendered = [];
 
     for (let i = 0; i < stars; i++) {
         starsRendered.push(StarSolid());
+    }
+
+    for (let i = 0; i < MAX_NUM_STARS - stars; i++) {
+        starsRendered.push(StarOutline());
     }
 
     const { div } = van.tags;
