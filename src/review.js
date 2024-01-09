@@ -76,3 +76,19 @@ export const StarSolid = () => svg({ viewBox: "0 0 24 24", fill: "currentColor",
         "clip-rule":"evenodd"
     })
 )
+
+/**
+ * 
+ * @param {{ stars: number }} props
+ */
+export function ReviewStars({ stars }) {
+    const starsRendered = [];
+
+    for (let i = 0; i < stars; i++) {
+        starsRendered.push(StarSolid());
+    }
+
+    const { div } = van.tags;
+
+    return div({}, starsRendered);
+}
