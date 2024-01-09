@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-import { OverlayReview, Star } from "./review";
+import { OverlayReview, StarOutline, StarSolid } from "./review";
 
 const overlayReview = {
     review: {
@@ -14,4 +14,5 @@ const overlayReview = {
 }
 
 van.add(document.body, OverlayReview(overlayReview));
-van.add(document.body, Star());
+van.add(document.body, StarOutline());
+van.add(document.body, StarSolid());
