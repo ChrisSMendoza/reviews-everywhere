@@ -7,4 +7,4 @@
 import 'vite/modulepreload-polyfill'
 
 import './style.css'
-import "./reviews-everywhere.js";
+import "./demo-reviews.js";
