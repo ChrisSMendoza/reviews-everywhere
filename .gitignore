@@ -1,6 +1,10 @@
 # Environment
 .env
 
+# Database
+# TODO: Look into this being checked-in
+dev.db
+
 # Logs
 logs
 *.log
