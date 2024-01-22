@@ -21,7 +21,18 @@
         const reviewsResponse = await fetch('/reviews');
 
         if(reviewsResponse.ok) {
-            console.log("reviewsResponse: ", await reviewsResponse.json())
+            const reviews = await reviewsResponse.json()
+
+            reviews.forEach(review => {
+                const p = document.createElement('p');
+                p.textContent = review.text;
+
+                const li = document.createElement('li');
+                li.appendChild(p);
+
+                const reviewsList = document.querySelector('#reviews');
+                reviewsList.appendChild(li);
+            });
         } else {
             console.warn("Bad status when fetching reviews", reviewsResponse.status);
         }
