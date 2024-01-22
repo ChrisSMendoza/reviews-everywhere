@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-import { OverlayReview } from "./review";
+import { Review } from "./review";
 
 const overlayReview = {
     review: {
@@ -13,4 +13,16 @@ const overlayReview = {
     }
 }
 
-van.add(document.body, OverlayReview(overlayReview));
+const reviewsResponse = await fetch('/reviews');
+
+if(reviewsResponse.ok) {
+    const reviews = await reviewsResponse.json()
+
+    console.log("Reviews on client side: ", reviews)
+
+    reviews.forEach(review => {
+        van.add(document.body, Review({ review }));
+    });
+} else {
+    console.warn("Bad status when fetching reviews", reviewsResponse.status);
+}
