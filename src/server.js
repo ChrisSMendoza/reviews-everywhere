@@ -8,6 +8,7 @@ const MIME_TYPES = {
   default: "application/octet-stream",
   html: "text/html; charset=UTF-8",
   js: "application/javascript",
+  mjs: "application/javascript", // JS Modules
   css: "text/css",
   png: "image/png",
   jpg: "image/jpg",
@@ -33,8 +34,16 @@ const prepareFile = async (url) => {
   return { found, ext, stream };
 };
 
+
+
 http
   .createServer(async (req, res) => {
+    // TODO: Set this for only the development route, and only during development
+    // Enable CORS for all routes
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
     const file = await prepareFile(req.url);
     const statusCode = file.found ? 200 : 404;
     const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
