@@ -18,6 +18,13 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
+app.get('/reviews', async (req, res) => {
+    // All reviews
+    const reviews = await prisma.review.findMany()
+
+    res.send(reviews)
+});
+
 app.post('/submit-form', async (req, res) => {
     // TODO: Add typing with JSDoc
     const reviewFromClient = req.body;

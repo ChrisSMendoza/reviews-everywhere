@@ -13,5 +13,17 @@
                 <input name="text" />
             </label>
         </form>
+
+        <ul id="reviews"></ul>
     </body>
+
+    <script type="module">
+        const reviewsResponse = await fetch('/reviews');
+
+        if(reviewsResponse.ok) {
+            console.log("reviewsResponse: ", await reviewsResponse.json())
+        } else {
+            console.warn("Bad status when fetching reviews", reviewsResponse.status);
+        }
+    </script>
 </html>
