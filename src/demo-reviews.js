@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-import { Review } from "./review";
+import { Review, CreateReviewForm } from "./review";
 
 const overlayReview = {
     review: {
@@ -24,3 +24,5 @@ if(reviewsResponse.ok) {
 } else {
     console.warn("Bad status when fetching reviews", reviewsResponse.status);
 }
+
+van.add(document.body, CreateReviewForm());

@@ -96,3 +96,12 @@ export function ReviewStars({ stars }) {
 
     return div({}, starsRendered);
 }
+
+
+export function CreateReviewForm() {
+    const { form, input }  = van.tags;
+
+    const reviewTextInput = input({ name: "text" });
+
+    return form(reviewTextInput);
+}
