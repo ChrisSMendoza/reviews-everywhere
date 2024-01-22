@@ -18,8 +18,6 @@ const reviewsResponse = await fetch('/reviews');
 if(reviewsResponse.ok) {
     const reviews = await reviewsResponse.json()
 
-    console.log("Reviews on client side: ", reviews)
-
     reviews.forEach(review => {
         van.add(document.body, Review({ review }));
     });
