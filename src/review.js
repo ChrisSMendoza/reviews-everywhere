@@ -103,5 +103,8 @@ export function CreateReviewForm() {
 
     const reviewTextInput = input({ name: "text" });
 
-    return form(reviewTextInput);
+    return form({
+        method: "post",
+        action: "/review",
+    }, reviewTextInput);
 }
