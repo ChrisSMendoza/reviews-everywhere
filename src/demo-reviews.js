@@ -16,11 +16,14 @@ const overlayReview = {
 const reviewsResponse = await fetch('/reviews');
 
 if(reviewsResponse.ok) {
+    const { ul, li } = van.tags;
     const reviews = await reviewsResponse.json()
 
-    reviews.forEach(review => {
-        van.add(document.body, Review({ review }));
-    });
+    const reviewListItems = reviews
+        .map((review) => Review({ review }))
+        .map(reviewEl => li(reviewEl));
+
+    van.add(document.body, ul(reviewListItems))
 } else {
     console.warn("Bad status when fetching reviews", reviewsResponse.status);
 }
