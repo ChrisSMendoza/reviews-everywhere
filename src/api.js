@@ -25,7 +25,7 @@ app.get('/reviews', async (req, res) => {
     res.send(reviews)
 });
 
-app.post('/submit-form', async (req, res) => {
+app.post('/review', async (req, res) => {
     // TODO: Add typing with JSDoc
     const reviewFromClient = req.body;
 
