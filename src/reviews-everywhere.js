@@ -4,7 +4,7 @@ import { OverlayReview } from "./review";
 
 const overlayReview = {
     review: {
-        text: "These eggs are pretty goofy!",
+        text: "Dude, vite-express just works... :clap:",
         stars: 3
     },
     position: {
