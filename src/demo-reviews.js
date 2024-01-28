@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-import { Review, CreateReviewForm } from "./review";
+import { Review, CreateReviewForm, Overlay } from "./review";
 
 const overlayReview = {
     review: {
@@ -31,5 +31,8 @@ if(reviewsResponse.ok) {
 van.add(document.body, CreateReviewForm());
 
 document.addEventListener('click', (event) => {
-    console.log("Clicked on:", event.clientX, event.clientY);
+    const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
+    const overlayReviewMenu = Overlay({ children: CreateReviewForm(), position })
+
+    van.add(document.body, overlayReviewMenu);
 });
