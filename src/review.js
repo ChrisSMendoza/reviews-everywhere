@@ -99,12 +99,13 @@ export function ReviewStars({ stars }) {
 
 
 export function CreateReviewForm() {
-    const { form, input }  = van.tags;
+    const { form, input, label }  = van.tags;
 
     const reviewTextInput = input({ name: "text" });
+    const inputWithLabel = label('Review text', reviewTextInput);
 
     return form({
         method: "post",
         action: "/review",
-    }, reviewTextInput);
+    }, inputWithLabel);
 }
