@@ -29,3 +29,7 @@ if(reviewsResponse.ok) {
 }
 
 van.add(document.body, CreateReviewForm());
+
+document.addEventListener('click', (event) => {
+    console.log("Clicked on:", event.clientX, event.clientY);
+});
