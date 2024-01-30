@@ -27,11 +27,12 @@ export function Review({ review }) {
     return div({}, reviewText, reviewStars);
 }
 
-export function Overlay({ children, position }) {
+export function Overlay({ children, id, position }) {
     const { div } = van.tags;
 
     const overlay = div({
-        class: 'overlay-review'
+        class: 'overlay-review',
+        id
     }, children);
 
     overlay.style.top = position.top;
