@@ -27,8 +27,8 @@ if(reviewsResponse.ok) {
 } else {
     console.warn("Bad status when fetching reviews", reviewsResponse.status);
 }
-
-van.add(document.body, CreateReviewForm());
+// TODO: Allow undefined props?
+// van.add(document.body, CreateReviewForm());
 
 document.addEventListener('click', (event) => {
     const addReviewMenuInDOM = document.querySelector("#add-review-overlay");
@@ -38,8 +38,9 @@ document.addEventListener('click', (event) => {
         addReviewMenuInDOM.style.top = `${event.clientY}px`;
         addReviewMenuInDOM.style.left = `${event.clientX}px`;
     } else {
+        const onsubmit = (event) => { debugger }
         const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
-        const overlayReviewMenu = Overlay({ children: CreateReviewForm(), id: "add-review-overlay", position })
+        const overlayReviewMenu = Overlay({ children: CreateReviewForm({ onsubmit }), id: "add-review-overlay", position })
     
         van.add(document.body, overlayReviewMenu);
     }
