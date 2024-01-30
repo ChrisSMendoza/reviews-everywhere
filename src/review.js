@@ -99,14 +99,17 @@ export function ReviewStars({ stars }) {
 }
 
 
-export function CreateReviewForm({ onsubmit }) {
+export function CreateReviewForm({ onsubmit, position }) {
     const { form, input }  = van.tags;
 
     const reviewTextInput = input({ name: "text" });
+
+    const topInput = input({ name: "top", type: "hidden", value: position.top });
+    const leftInput = input({ name: "left", type: "hidden", value: position.left });
 
     return form({
         method: "post",
         action: "/review",
         onsubmit
-    }, reviewTextInput);
+    }, reviewTextInput, topInput, leftInput);
 }
