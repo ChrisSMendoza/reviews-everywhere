@@ -16,18 +16,17 @@ const overlayReview = {
 const reviewsResponse = await fetch('/reviews');
 
 if(reviewsResponse.ok) {
-    const reviews = await reviewsResponse.json()
-
-    reviews.forEach(review => {
-        // Note, `OverlayReview` isn't used because we don't persist stars yet
-        // Still thinking about the API, should probably generalize to a "message"...
-        const overlayReview = Overlay({ 
+    const reviews = await reviewsResponse.json();
+    // Note, `OverlayReview` isn't used because we don't persist stars yet
+    // Still thinking about the API, should probably generalize to a "message"...
+    const overlayReviews = reviews.map(review =>
+        Overlay({ 
             children: van.tags.p(review.text), 
             position: { left: review.left, top: review.top }
-        });
-
-        van.add(document.body, overlayReview);
-    })
+        })
+    )
+    // Show them to the user
+    overlayReviews.forEach(overlayReview => van.add(document.body, overlayReview));
 } else {
     console.warn("Bad status when fetching reviews", reviewsResponse.status);
 }
