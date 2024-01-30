@@ -35,7 +35,8 @@ document.addEventListener('click', (event) => {
 
     if(addReviewMenuInDOM) {
         // Already added to the screen, just need to move it
-        // TODO: Move the menu here
+        addReviewMenuInDOM.style.top = `${event.clientY}px`;
+        addReviewMenuInDOM.style.left = `${event.clientX}px`;
     } else {
         const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
         const overlayReviewMenu = Overlay({ children: CreateReviewForm(), id: "add-review-overlay", position })
