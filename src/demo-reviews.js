@@ -31,8 +31,15 @@ if(reviewsResponse.ok) {
 van.add(document.body, CreateReviewForm());
 
 document.addEventListener('click', (event) => {
-    const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
-    const overlayReviewMenu = Overlay({ children: CreateReviewForm(), id: "add-review-overlay", position })
+    const addReviewMenuInDOM = document.querySelector("#add-review-overlay");
 
-    van.add(document.body, overlayReviewMenu);
+    if(addReviewMenuInDOM) {
+        // Already added to the screen, just need to move it
+        // TODO: Move the menu here
+    } else {
+        const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
+        const overlayReviewMenu = Overlay({ children: CreateReviewForm(), id: "add-review-overlay", position })
+    
+        van.add(document.body, overlayReviewMenu);
+    }
 });
