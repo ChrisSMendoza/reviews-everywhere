@@ -37,7 +37,6 @@ document.addEventListener('click', (event) => {
         addReviewMenuInDOM.remove();
     }
 
-    const onsubmit = (event) => { debugger }
     const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
     const overlayReviewMenu = Overlay({ children: CreateReviewForm({ onsubmit, position }), id: "add-review-overlay", position })
 
