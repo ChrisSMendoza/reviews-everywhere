@@ -34,14 +34,12 @@ document.addEventListener('click', (event) => {
     const addReviewMenuInDOM = document.querySelector("#add-review-overlay");
 
     if(addReviewMenuInDOM) {
-        // Already added to the screen, just need to move it
-        addReviewMenuInDOM.style.top = `${event.clientY}px`;
-        addReviewMenuInDOM.style.left = `${event.clientX}px`;
-    } else {
-        const onsubmit = (event) => { debugger }
-        const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
-        const overlayReviewMenu = Overlay({ children: CreateReviewForm({ onsubmit }), id: "add-review-overlay", position })
-    
-        van.add(document.body, overlayReviewMenu);
+        addReviewMenuInDOM.remove();
     }
+
+    const onsubmit = (event) => { debugger }
+    const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
+    const overlayReviewMenu = Overlay({ children: CreateReviewForm({ onsubmit }), id: "add-review-overlay", position })
+
+    van.add(document.body, overlayReviewMenu);
 });
