@@ -7,14 +7,12 @@ export default defineConfig({
 
     rollupOptions: {
       // overwrite default .html entry
-      input: '/src/main.js',
+      input: "/src/main.js",
     },
 
     server: {
-        // Defines the origin of the generated asset URLs during development
-        origin: 'http://127.0.0.1:8000',
-    },    
+      // Defines the origin of the generated asset URLs during development
+      origin: "http://127.0.0.1:8000",
+    },
   },
 });
-
-

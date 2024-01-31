@@ -1,12 +1,11 @@
-
 .overlay-review {
-    position: absolute;
-    z-index: 99;
+  position: absolute;
+  z-index: 99;
 
-    background-color: white;
+  background-color: white;
 }
 
 .icon {
-    height: 1rem;
-    width: 1rem;
+  height: 1rem;
+  width: 1rem;
 }

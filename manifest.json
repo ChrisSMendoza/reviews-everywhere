@@ -1,15 +1,14 @@
 {
-    "manifest_version": 2,
-    "name": "Reviews Everywhere",
-    "version": "0.0",
-  
-    "description": "Provides reviews to any website",
-  
-    "content_scripts": [
-      {
-        "matches": ["*://*.ccs.com/*"],
-        "js": ["src/reviews-everywhere.js"]
-      }
-    ]
-  }
-  
+  "manifest_version": 2,
+  "name": "Reviews Everywhere",
+  "version": "0.0",
+
+  "description": "Provides reviews to any website",
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.ccs.com/*"],
+      "js": ["src/reviews-everywhere.js"]
+    }
+  ]
+}
