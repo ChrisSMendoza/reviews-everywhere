@@ -30,10 +30,9 @@ export function Review({ review }) {
 export function Overlay({ children, id, position }) {
     const { div } = van.tags;
 
-    const overlay = div({
-        class: 'overlay-review',
-        id
-    }, children);
+    const overlay = div({ class: 'overlay-review' }, children);
+
+    if (id) { overlay.id = id; }
 
     overlay.style.top = position.top;
     overlay.style.left = position.left;
