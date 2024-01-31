@@ -1,53 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body></body>
 
-</body>
-
-<script type="module">
+  <script type="module">
     const mockReview = {
-        top: "543px",
-        left: "442px",
-        text: "These eggs are pretty goofy!"
-    }
-    import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.2.7.min.js"
+      top: "543px",
+      left: "442px",
+      text: "These eggs are pretty goofy!",
+    };
+    import van from "https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.2.7.min.js";
 
     function Review(props) {
-        const { p, style } = van.tags
-        
-        const review = p({
-            textContent: props.review.text,
-        })
-        
-        review.style.top = props.review.top;
-        review.style.left = props.review.left;
-        review.style.position = "absolute";
+      const { p, style } = van.tags;
 
-        // Should only be done if it has a position
-        // reviewOverlay.style.top = review.top;
-        // reviewOverlay.style.left = review.left;
-        // reviewOverlay.style.position = "absolute";
-        // TODO: Think about a sensible value
-        // reviewOverlay.style.zIndex = "99";
+      const review = p({
+        textContent: props.review.text,
+      });
 
-        // reviewOverlay.style.backgroundColor = "white";
-        return review;
+      review.style.top = props.review.top;
+      review.style.left = props.review.left;
+      review.style.position = "absolute";
+
+      // Should only be done if it has a position
+      // reviewOverlay.style.top = review.top;
+      // reviewOverlay.style.left = review.left;
+      // reviewOverlay.style.position = "absolute";
+      // TODO: Think about a sensible value
+      // reviewOverlay.style.zIndex = "99";
+
+      // reviewOverlay.style.backgroundColor = "white";
+      return review;
     }
 
-    van.add(document.body, Review({ review: mockReview }))
-</script>
+    van.add(document.body, Review({ review: mockReview }));
+  </script>
 
-<style>
+  <style>
     body {
-        height: 100vh;
-        width: 100vw;
-        background-color: lightgray;
+      height: 100vh;
+      width: 100vw;
+      background-color: lightgray;
     }
-</style>
-
+  </style>
 </html>

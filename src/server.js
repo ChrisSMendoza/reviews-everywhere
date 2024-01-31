@@ -34,15 +34,13 @@ const prepareFile = async (url) => {
   return { found, ext, stream };
 };
 
-
-
 http
   .createServer(async (req, res) => {
     // TODO: Set this for only the development route, and only during development
     // Enable CORS for all routes
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
     const file = await prepareFile(req.url);
     const statusCode = file.found ? 200 : 404;
