@@ -27,12 +27,12 @@ export function Review({ review }) {
     return div({}, reviewText, reviewStars);
 }
 
-export function Overlay({ children, position }) {
+export function Overlay({ children, id, position }) {
     const { div } = van.tags;
 
-    const overlay = div({
-        class: 'overlay-review'
-    }, children);
+    const overlay = div({ class: 'overlay-review' }, children);
+
+    if (id) { overlay.id = id; }
 
     overlay.style.top = position.top;
     overlay.style.left = position.left;
@@ -98,13 +98,17 @@ export function ReviewStars({ stars }) {
 }
 
 
-export function CreateReviewForm() {
+export function CreateReviewForm({ onsubmit, position }) {
     const { form, input }  = van.tags;
 
     const reviewTextInput = input({ name: "text" });
 
+    const topInput = input({ name: "top", type: "hidden", value: position.top });
+    const leftInput = input({ name: "left", type: "hidden", value: position.left });
+
     return form({
         method: "post",
         action: "/review",
-    }, reviewTextInput);
+        onsubmit
+    }, reviewTextInput, topInput, leftInput);
 }
