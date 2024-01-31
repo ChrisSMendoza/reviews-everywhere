@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-import { Review, CreateReviewForm, Overlay } from "./review";
+import { CreateReviewForm, Overlay, OverlayReview } from "./review";
 
 const overlayReview = {
     review: {
@@ -17,11 +17,12 @@ const reviewsResponse = await fetch('/reviews');
 
 if(reviewsResponse.ok) {
     const reviews = await reviewsResponse.json();
-    // Note, `OverlayReview` isn't used because we don't persist stars yet
-    // Still thinking about the API, should probably generalize to a "message"...
+
     const overlayReviews = reviews.map(review =>
-        Overlay({ 
-            children: van.tags.p(review.text), 
+        // This renders fine, but it's technically not a review.
+        // There's no stars. TODO: Generalize to Message? OverlayMessage?
+        OverlayReview({
+            review,
             position: { left: review.left, top: review.top }
         })
     )
