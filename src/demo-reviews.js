@@ -2,16 +2,6 @@ import van from "vanjs-core";
 
 import { CreateReviewForm, Overlay, OverlayReview } from "./review";
 
-const overlayReview = {
-    review: {
-        text: "Dude, vite-express just works out of the box :clap:",
-        stars: 3
-    },
-    position: {
-        top: "543px",
-        left: "100px",
-    }
-}
 
 const reviewsResponse = await fetch('/reviews');
 
