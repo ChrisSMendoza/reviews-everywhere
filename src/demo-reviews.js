@@ -30,7 +30,17 @@ document.addEventListener('click', (event) => {
     }
 
     const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
-    const overlayReviewMenu = Overlay({ children: CreateReviewForm({ onsubmit, position }), id: "add-review-overlay", position })
+
+    const overlayReviewMenu = Overlay({ 
+        children: CreateReviewForm({ 
+            onclick: stopPropagationOnClick,
+            position 
+        }), 
+        id: "add-review-overlay", 
+        position 
+    });
 
     van.add(document.body, overlayReviewMenu);
 });
+
+const stopPropagationOnClick = (event) => event.stopPropagation();

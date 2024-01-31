@@ -98,15 +98,13 @@ export function ReviewStars({ stars }) {
 }
 
 
-export function CreateReviewForm({ onsubmit, position }) {
+export function CreateReviewForm({ onclick, onsubmit, position }) {
     const { form, input }  = van.tags;
 
     const reviewTextInput = input({ name: "text" });
 
     const topInput = input({ name: "top", type: "hidden", value: position.top });
     const leftInput = input({ name: "left", type: "hidden", value: position.left });
-
-    const onclick = (event) => event.stopPropagation();
 
     return form({
         method: "post",
