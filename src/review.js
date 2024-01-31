@@ -106,9 +106,12 @@ export function CreateReviewForm({ onsubmit, position }) {
     const topInput = input({ name: "top", type: "hidden", value: position.top });
     const leftInput = input({ name: "left", type: "hidden", value: position.left });
 
+    const onclick = (event) => event.stopPropagation();
+
     return form({
         method: "post",
         action: "/review",
-        onsubmit
+        onsubmit,
+        onclick
     }, reviewTextInput, topInput, leftInput);
 }
