@@ -29,13 +29,17 @@ document.addEventListener('click', (event) => {
         addReviewMenuInDOM.remove();
     }
 
-    const position = { top: `${event.clientY}px`, left: `${event.clientX}px` }
+    const position = { top: `${event.clientY}px`, left: `${event.clientX}px` };
+
+    // We stop the click event from bubbling up so
+    // the form doesn't move when the user clicks it
+    const createReviewForm = CreateReviewForm({ 
+        onclick: stopPropagationOnClick,
+        position 
+    });
 
     const overlayReviewMenu = Overlay({ 
-        children: CreateReviewForm({ 
-            onclick: stopPropagationOnClick,
-            position 
-        }), 
+        children: createReviewForm,
         id: "add-review-overlay", 
         position 
     });
