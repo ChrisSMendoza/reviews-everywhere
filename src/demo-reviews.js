@@ -21,8 +21,6 @@ if(reviewsResponse.ok) {
 } else {
     console.warn("Bad status when fetching reviews", reviewsResponse.status);
 }
-// TODO: Allow undefined props?
-// van.add(document.body, CreateReviewForm());
 
 document.addEventListener('click', (event) => {
     const addReviewMenuInDOM = document.querySelector("#add-review-overlay");
