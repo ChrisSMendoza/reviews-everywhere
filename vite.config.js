@@ -7,7 +7,13 @@ export default defineConfig({
 
     rollupOptions: {
       // overwrite default .html entry
-      input: "/src/main.js",
+      input: "/src/firefox-extension.js",
+
+      output: {
+        // Removes hash from built file in `dist/`.
+        // Easier to load from Firefox add-on debugger.
+        entryFileNames: "[name].js",
+      },
     },
 
     server: {
