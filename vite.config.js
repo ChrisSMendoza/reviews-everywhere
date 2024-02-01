@@ -7,7 +7,7 @@ export default defineConfig({
 
     rollupOptions: {
       // overwrite default .html entry
-      input: "/src/main.js",
+      input: "/src/firefox-extension.js",
     },
 
     server: {
