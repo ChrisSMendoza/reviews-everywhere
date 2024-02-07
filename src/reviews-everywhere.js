@@ -2,9 +2,6 @@ import van from "vanjs-core";
 
 import { CreateReviewForm, Overlay } from "./review.js";
 
-// TODO: Move this to demo entry?
-document.addEventListener("click", onDocumentClick);
-
 /**
  * @param {MouseEvent} event
  * @todo - Should we use PointerEvent? Seems like Firefox / Safari still use MouseEvents?
