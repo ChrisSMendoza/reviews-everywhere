@@ -37,6 +37,7 @@ export function Overlay({ children, id, position }) {
 
   overlay.style.top = position.top;
   overlay.style.left = position.left;
+  overlay.style.position = "absolute";
 
   return overlay;
 }
