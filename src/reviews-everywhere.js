@@ -2,14 +2,16 @@ import van from "vanjs-core";
 
 import { CreateReviewForm, Overlay } from "./review.js";
 
-// TODO: Copy and pasted, please refactor
-document.addEventListener("click", (event) => {
+/**
+ * @param {MouseEvent} event
+ * @todo - Should we use PointerEvent? Seems like Firefox / Safari still use MouseEvents?
+ */
+export function onDocumentClick(event) {
   const addReviewMenuInDOM = document.querySelector("#add-review-overlay");
 
   if (addReviewMenuInDOM) {
     addReviewMenuInDOM.remove();
   }
-
   const position = { top: `${event.clientY}px`, left: `${event.clientX}px` };
 
   // We stop the click event from bubbling up so
@@ -26,6 +28,6 @@ document.addEventListener("click", (event) => {
   });
 
   van.add(document.body, overlayReviewMenu);
-});
+}
 
 const stopPropagationOnClick = (event) => event.stopPropagation();

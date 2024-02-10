@@ -1,6 +1,7 @@
 import van from "vanjs-core";
 
-import { CreateReviewForm, Overlay, OverlayReview } from "./review";
+import { OverlayReview } from "./review";
+import { onDocumentClick } from "./reviews-everywhere";
 
 const reviewsResponse = await fetch("/reviews");
 
@@ -23,29 +24,4 @@ if (reviewsResponse.ok) {
   console.warn("Bad status when fetching reviews", reviewsResponse.status);
 }
 
-document.addEventListener("click", (event) => {
-  const addReviewMenuInDOM = document.querySelector("#add-review-overlay");
-
-  if (addReviewMenuInDOM) {
-    addReviewMenuInDOM.remove();
-  }
-
-  const position = { top: `${event.clientY}px`, left: `${event.clientX}px` };
-
-  // We stop the click event from bubbling up so
-  // the form doesn't move when the user clicks it
-  const createReviewForm = CreateReviewForm({
-    onclick: stopPropagationOnClick,
-    position,
-  });
-
-  const overlayReviewMenu = Overlay({
-    children: createReviewForm,
-    id: "add-review-overlay",
-    position,
-  });
-
-  van.add(document.body, overlayReviewMenu);
-});
-
-const stopPropagationOnClick = (event) => event.stopPropagation();
+document.addEventListener("click", onDocumentClick);
