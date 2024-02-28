@@ -4,6 +4,7 @@
 # Database
 # TODO: Look into this being checked-in
 dev.db
+dev.db-*
 
 # Logs
 logs
