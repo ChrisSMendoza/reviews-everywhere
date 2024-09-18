@@ -1,5 +1,5 @@
 import express from "express";
-// Side-effects allows form data to be parsed, no need for exported object
+// Side-effects allow form data to be parsed, no need for exported object
 import _ from "body-parser";
 
 import { PrismaClient } from "@prisma/client";
