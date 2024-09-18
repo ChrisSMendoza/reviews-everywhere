@@ -7,7 +7,7 @@ export default defineConfig({
 
     rollupOptions: {
       // overwrite default .html entry
-      input: "/src/firefox-extension.js",
+      input: "/src/main.js",
 
       output: {
         // Removes hash from built file in `dist/`.
