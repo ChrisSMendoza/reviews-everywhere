@@ -38,4 +38,6 @@ async function loadReviews() {
 loadReviews().then(console.log).catch(console.error);
 
 console.log("Context menu will appear on click - Reviews Everywhere");
+
+// TODO: Move this into another file, process, build?? IDK??
 document.addEventListener("click", onDocumentClick);
