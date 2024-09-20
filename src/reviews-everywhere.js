@@ -16,16 +16,31 @@ export function onDocumentClick(event) {
   if (addReviewMenuInDOM) {
     addReviewMenuInDOM.remove();
   }
+  // TODO: Add units prop so there's no string concatenation needed?
   const position = { top: `${event.clientY}px`, left: `${event.clientX}px` };
 
   // We stop the click event from bubbling up so
   // the form doesn't move when the user clicks it
   const createReviewForm = CreateReviewForm({
+    // Guess the action would only benefit when JS is disabled? Do extensions run in that case (different runtime?)?
     action: `${BASE_URL}/review`,
-    // Fires on click, menu opens, but then doesn't run when enter is pressed
+
     onsubmit: (e) => {
-      debugger;
+      // Stop redirect caused by default submit
       e.preventDefault();
+
+      const thisForm = e.currentTarget;
+      const formInput = new FormData(thisForm);
+      console.log(formInput);
+      debugger;
+      const createReviewRequest = new Request(`${BASE_URL}/review`, {
+        method: "POST",
+        body: formInput,
+      });
+
+      fetch(createReviewRequest).then(console.log).catch(console.error);
+
+      // debugger;
     },
     onclick: stopPropagationOnClick,
     position,
