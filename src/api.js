@@ -24,7 +24,7 @@ api.post("/review", async (req, res) => {
   // TODO: Add typing with JSDoc
   const reviewFromClient = req.body;
 
-  console.log("reviewFromClient:", reviewFromClient);
+  console.log("Create review", reviewFromClient);
 
   const review = await prisma.review.create({
     data: reviewFromClient,

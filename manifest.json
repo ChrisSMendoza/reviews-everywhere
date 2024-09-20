@@ -12,5 +12,7 @@
       "js": ["dist/main.js"],
       "css": ["src/style.css"]
     }
-  ]
+  ],
+
+  "permissions": ["https://jsonplaceholder.typicode.com/posts/1"]
 }
