@@ -19,7 +19,7 @@ api.get("/reviews", async (req, res) => {
 
   res.send(reviews);
 });
-
+// TODO: Thinking it should be reviews? Maybe not? What if we post multiple? Eh.. not likely?
 api.post("/review", async (req, res) => {
   // TODO: Add typing with JSDoc
   const reviewFromClient = req.body;
