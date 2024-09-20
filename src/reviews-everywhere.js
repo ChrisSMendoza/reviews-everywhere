@@ -25,6 +25,9 @@ export function onDocumentClick(event) {
     // Guess the action would only benefit when JS is disabled? Do extensions run in that case (different runtime?)?
     action: `${BASE_URL}/review`,
 
+    // Learned that action uses: `Content-Type: application/x-www-form-urlencoded`
+    // While the fetch POST with formData uses `: multipart/form-data`
+
     onsubmit: (e) => {
       // Stop redirect caused by default submit
       e.preventDefault();
@@ -32,15 +35,18 @@ export function onDocumentClick(event) {
       const thisForm = e.currentTarget;
       const formInput = new FormData(thisForm);
       console.log(formInput);
-      debugger;
+
       const createReviewRequest = new Request(`${BASE_URL}/review`, {
         method: "POST",
-        body: formInput,
+        body: new URLSearchParams(formInput),
+        headers: {
+          // TODO: Test if this is added automatically?
+          // Our server doesn't know how to parse `multipart/form-data`, so use simpler format
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
       });
 
       fetch(createReviewRequest).then(console.log).catch(console.error);
-
-      // debugger;
     },
     onclick: stopPropagationOnClick,
     position,
