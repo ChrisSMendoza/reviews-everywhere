@@ -26,10 +26,13 @@ api.post("/review", async (req, res) => {
 
   console.log("Create review", reviewFromClient);
 
-  const review = await prisma.review.create({
-    data: reviewFromClient,
-  });
-
+  try {
+    const review = await prisma.review.create({
+      data: reviewFromClient,
+    });
+  } catch (e) {
+    console.error(e);
+  }
   res.send(`Review created`);
 });
 
