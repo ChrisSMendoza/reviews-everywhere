@@ -7,7 +7,7 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.ccs.com/*"],
+      "matches": ["*://*/*"],
       "//": "TODO: Probably should be firefox-extension.js...",
       "js": ["dist/main.js"],
       "css": ["src/style.css"]
