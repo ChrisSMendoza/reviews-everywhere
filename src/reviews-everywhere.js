@@ -22,6 +22,11 @@ export function onDocumentClick(event) {
   // the form doesn't move when the user clicks it
   const createReviewForm = CreateReviewForm({
     action: `${BASE_URL}/review`,
+    // Fires on click, menu opens, but then doesn't run when enter is pressed
+    onsubmit: (e) => {
+      debugger;
+      e.preventDefault();
+    },
     onclick: stopPropagationOnClick,
     position,
   });
