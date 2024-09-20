@@ -3,7 +3,7 @@ import van from "vanjs-core";
 import { OverlayReview } from "./review";
 import { onDocumentClick } from "./reviews-everywhere";
 
-async function getAndShowReviews() {
+async function loadReviews() {
   const reviewsResponse = await fetch("/reviews");
 
   if (reviewsResponse.ok) {
@@ -26,6 +26,6 @@ async function getAndShowReviews() {
   }
 }
 
-getAndShowReviews().then(console.log).catch(console.error);
+loadReviews().then(console.log).catch(console.error);
 
 document.addEventListener("click", onDocumentClick);
