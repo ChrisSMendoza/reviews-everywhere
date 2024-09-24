@@ -1,10 +1,7 @@
 import van from "vanjs-core";
 
+import { BASE_URL } from "./api-client.js";
 import { CreateReviewForm, Overlay } from "./review.js";
-
-// TODO: Share base URL
-const BASE_URL =
-  "https://6e9d-2600-1700-5b24-a090-dcd4-affe-ad06-55fd.ngrok-free.app";
 
 /**
  * @param {MouseEvent} event
@@ -34,9 +31,9 @@ export function onDocumentClick(event) {
 
       const thisForm = e.currentTarget;
       const formInput = new FormData(thisForm);
-      console.log(formInput);
 
-      const createReviewRequest = new Request(`${BASE_URL}/review`, {
+      const createReviewUrl = `${BASE_URL}/review`;
+      const createReviewRequest = new Request(createReviewUrl, {
         method: "POST",
         body: new URLSearchParams(formInput),
         headers: {
