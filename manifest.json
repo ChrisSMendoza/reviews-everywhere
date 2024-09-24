@@ -7,9 +7,14 @@
 
   "content_scripts": [
     {
-      "matches": ["*://*.ccs.com/*"],
-      "js": ["dist/firefox-extension.js"],
+      "matches": ["*://*/*"],
+      "//": "TODO: Probably should be firefox-extension.js...",
+      "js": ["dist/main.js"],
       "css": ["src/style.css"]
     }
+  ],
+
+  "permissions": [
+    "https://6e9d-2600-1700-5b24-a090-dcd4-affe-ad06-55fd.ngrok-free.app/*"
   ]
 }

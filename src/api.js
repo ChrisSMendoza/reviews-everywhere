@@ -1,5 +1,5 @@
 import express from "express";
-// Side-effects allows form data to be parsed, no need for exported object
+// Side-effects allow form data to be parsed, no need for exported object
 import _ from "body-parser";
 
 import { PrismaClient } from "@prisma/client";
@@ -19,17 +19,20 @@ api.get("/reviews", async (req, res) => {
 
   res.send(reviews);
 });
-
+// TODO: Thinking it should be reviews? Maybe not? What if we post multiple? Eh.. not likely?
 api.post("/review", async (req, res) => {
   // TODO: Add typing with JSDoc
   const reviewFromClient = req.body;
 
-  console.log("reviewFromClient:", reviewFromClient);
+  console.log("Create review", reviewFromClient);
 
-  const review = await prisma.review.create({
-    data: reviewFromClient,
-  });
-
+  try {
+    const review = await prisma.review.create({
+      data: reviewFromClient,
+    });
+  } catch (e) {
+    console.error(e);
+  }
   res.send(`Review created`);
 });
 
