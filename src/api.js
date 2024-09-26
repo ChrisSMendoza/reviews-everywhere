@@ -26,12 +26,6 @@ api.get("/reviews", async (req, res) => {
   res.send(reviews);
 });
 
-// We need to have the review tied to a domain when it's created.
-// Then when we fetch reviews, it'll be by domain? Or should they be IDs?
-// For now, we'll go with domains!
-//
-// And handle when there's no domain? Could migrate to like a dev URL?
-
 // TODO: Thinking it should be reviews? Maybe not? What if we post multiple? Eh.. not likely?
 api.post("/review", async (req, res) => {
   // TODO: Add typing with JSDoc
