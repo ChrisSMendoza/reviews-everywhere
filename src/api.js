@@ -8,27 +8,41 @@ const prisma = new PrismaClient();
 
 const api = express();
 
+// TODO: Get this file to reload the project on change
 api.use(express.static("static"));
 
 // Use middleware to parse URL-encoded form data
 api.use(express.urlencoded({ extended: true }));
 
 api.get("/reviews", async (req, res) => {
+  console.log(req);
   // All reviews when no parameters are passed into `findMany`
   const reviews = await prisma.review.findMany();
 
   res.send(reviews);
 });
+
+// We need to have the review tied to a domain when it's created.
+// Then when we fetch reviews, it'll be by domain? Or should they be IDs?
+// For now, we'll go with domains!
+//
+// And handle when there's no domain? Could migrate to like a dev URL?
+
 // TODO: Thinking it should be reviews? Maybe not? What if we post multiple? Eh.. not likely?
 api.post("/review", async (req, res) => {
   // TODO: Add typing with JSDoc
-  const reviewFromClient = req.body;
+  const createReviewRequestBody = req.body;
+  console.log("Create review", createReviewRequestBody);
 
-  console.log("Create review", reviewFromClient);
+  // Parse href (full URL) from client so we only use `origin` and `pathname`.
+  // We ignore query parameters right now, but still have them available.
+  const { windowHref, ...reviewWithoutUrl } = createReviewRequestBody;
+  const windowUrl = new URL(windowHref);
+  const url = `${windowUrl.origin}${windowUrl.pathname}`;
 
   try {
     const review = await prisma.review.create({
-      data: reviewFromClient,
+      data: { ...reviewWithoutUrl, url },
     });
   } catch (e) {
     console.error(e);
