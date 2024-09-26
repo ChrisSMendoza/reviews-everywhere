@@ -15,9 +15,7 @@ api.use(express.static("static"));
 api.use(express.urlencoded({ extended: true }));
 
 api.get("/reviews", async (req, res) => {
-  // TODO: Share this with POST handler below, will make it easier to set default URL
-  const windowUrl = new URL(req.query.windowHref);
-  const url = `${windowUrl.origin}${windowUrl.pathname}`;
+  const url = parseReviewUrl(req.query.windowHref);
   // All reviews when no parameters are passed into `findMany`
   const reviews = await prisma.review.findMany({
     where: {
@@ -43,8 +41,7 @@ api.post("/review", async (req, res) => {
   // Parse href (full URL) from client so we only use `origin` and `pathname`.
   // We ignore query parameters right now, but still have them available.
   const { windowHref, ...reviewWithoutUrl } = createReviewRequestBody;
-  const windowUrl = new URL(windowHref);
-  const url = `${windowUrl.origin}${windowUrl.pathname}`;
+  const url = parseReviewUrl(windowHref);
 
   try {
     const review = await prisma.review.create({
@@ -55,5 +52,14 @@ api.post("/review", async (req, res) => {
   }
   res.send(`Review created`);
 });
+
+function parseReviewUrl(href /*String*/) {
+  const url = new URL(href);
+
+  // Example, joins 'https://origin.com' with '/pathname/just/path'
+  const reviewUrl = `${url.origin}${url.pathname}`;
+
+  return reviewUrl;
+}
 
 export default api;
