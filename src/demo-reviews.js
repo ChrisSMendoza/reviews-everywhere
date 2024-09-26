@@ -12,6 +12,8 @@ import { onDocumentClick } from "./reviews-everywhere";
 
 async function loadReviews() {
   const getReviewsRequest = new URL(`${BASE_URL}/reviews`);
+  // TODO: Share this parsing window location properties functionality with core
+  getReviewsRequest.searchParams.append("windowHref", window.location.href);
 
   const reviewsResponse = await fetch(getReviewsRequest);
 
