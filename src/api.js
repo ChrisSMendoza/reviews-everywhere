@@ -8,7 +8,6 @@ const prisma = new PrismaClient();
 
 const api = express();
 
-// TODO: Get this file to reload the project on change
 api.use(express.static("static"));
 
 // Use middleware to parse URL-encoded form data

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node src/server.js",
+    "dev": "nodemon --watch src/api.js --exec 'node src/server.js'",
     "dev:ext": "nodemon --watch src --exec 'vite build'",
     "build": "vite build",
     "preview": "vite preview"
