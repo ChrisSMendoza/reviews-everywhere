@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,6 +13,9 @@ model Review {
   text String
 
   // Position
-  top String
+  top  String
   left String
+
+  // Source page
+  url String @default("")
 }

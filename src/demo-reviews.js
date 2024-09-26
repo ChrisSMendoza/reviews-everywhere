@@ -11,7 +11,12 @@ import { onDocumentClick } from "./reviews-everywhere";
 // should be set by env / build process
 
 async function loadReviews() {
-  const reviewsResponse = await fetch(`${BASE_URL}/reviews`);
+  const getReviewsRequest = new URL(`${BASE_URL}/reviews`);
+
+  // Filter reviews that were created on this page
+  getReviewsRequest.searchParams.append("windowHref", window.location.href);
+
+  const reviewsResponse = await fetch(getReviewsRequest);
 
   if (reviewsResponse.ok) {
     const reviews = await reviewsResponse.json();

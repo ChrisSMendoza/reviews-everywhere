@@ -31,11 +31,15 @@ export function onDocumentClick(event) {
 
       const thisForm = e.currentTarget;
       const formInput = new FormData(thisForm);
+      const createReviewSearchParams = new URLSearchParams(formInput);
+
+      // Add current webpage URL to payload, parsed on backend for origin + pathname (ignore query params)
+      createReviewSearchParams.set("windowHref", window.location.href);
 
       const createReviewUrl = `${BASE_URL}/review`;
       const createReviewRequest = new Request(createReviewUrl, {
         method: "POST",
-        body: new URLSearchParams(formInput),
+        body: createReviewSearchParams,
         headers: {
           // TODO: Test if this is added automatically?
           // Our server doesn't know how to parse `multipart/form-data`, so use simpler format
