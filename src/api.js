@@ -15,9 +15,15 @@ api.use(express.static("static"));
 api.use(express.urlencoded({ extended: true }));
 
 api.get("/reviews", async (req, res) => {
-  console.log(req);
+  // TODO: Share this with POST handler below, will make it easier to set default URL
+  const windowUrl = new URL(req.query.windowHref);
+  const url = `${windowUrl.origin}${windowUrl.pathname}`;
   // All reviews when no parameters are passed into `findMany`
-  const reviews = await prisma.review.findMany();
+  const reviews = await prisma.review.findMany({
+    where: {
+      url,
+    },
+  });
 
   res.send(reviews);
 });
