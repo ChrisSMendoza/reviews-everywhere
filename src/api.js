@@ -53,7 +53,12 @@ api.post("/review", async (req, res) => {
   res.send(`Review created`);
 });
 
-function parseReviewUrl(href /*String*/) {
+/**
+ * @param {string}  href - The full source URL of a review (like `window.location.href`)
+ *
+ * @returns {string} The parsed URL that's saved onto the `Review`. Used as reference when loading onto page. Note, query parameters are ignored.
+ */
+function parseReviewUrl(href) {
   const url = new URL(href);
 
   // Example, joins 'https://origin.com' with '/pathname/just/path'
