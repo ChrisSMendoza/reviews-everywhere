@@ -33,11 +33,8 @@ export function onDocumentClick(event) {
       const formInput = new FormData(thisForm);
       const createReviewSearchParams = new URLSearchParams(formInput);
 
-      // Add current webpage URL to payload (without query parameters, ignored for now)
-      createReviewSearchParams.set(
-        "url",
-        `${window.location.origin}${window.location.pathname}`,
-      );
+      // Add current webpage URL to payload, parsed on backend for origin + pathname (ignore query params)
+      createReviewSearchParams.set("windowHref", window.location.href);
 
       const createReviewUrl = `${BASE_URL}/review`;
       const createReviewRequest = new Request(createReviewUrl, {
