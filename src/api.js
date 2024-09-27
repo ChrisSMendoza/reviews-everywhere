@@ -14,6 +14,7 @@ api.use(express.static("static"));
 api.use(express.urlencoded({ extended: true }));
 
 api.get("/reviews", async (req, res) => {
+  // TODO: we should save this whooooooole thingggg, ya digg
   const url = parseReviewUrl(req.query.windowHref);
   // All reviews when no parameters are passed into `findMany`
   const reviews = await prisma.review.findMany({
