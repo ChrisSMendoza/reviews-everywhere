@@ -14,12 +14,11 @@ api.use(express.static("static"));
 api.use(express.urlencoded({ extended: true }));
 
 api.get("/reviews", async (req, res) => {
-  // TODO: we should save this whooooooole thingggg, ya digg
-  const url = parseReviewUrl(req.query.windowHref);
+  // TODO: Do something with reviews that have no URL
   // All reviews when no parameters are passed into `findMany`
   const reviews = await prisma.review.findMany({
     where: {
-      url,
+      url: req.query.windowHref,
     },
   });
 
@@ -32,14 +31,13 @@ api.post("/review", async (req, res) => {
   const createReviewRequestBody = req.body;
   console.log("Create review", createReviewRequestBody);
 
-  // Parse href (full URL) from client so we only use `origin` and `pathname`.
-  // We ignore query parameters right now, but still have them available.
+  // Rename `windowHref` to `url` on Review
   const { windowHref, ...reviewWithoutUrl } = createReviewRequestBody;
-  const url = parseReviewUrl(windowHref);
+  const incomingReview = { url: windowHref, ...reviewWithoutUrl };
 
   try {
     const review = await prisma.review.create({
-      data: { ...reviewWithoutUrl, url },
+      data: incomingReview,
     });
   } catch (e) {
     console.error(e);
