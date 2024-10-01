@@ -1,7 +1,7 @@
 import van from "vanjs-core";
 
 import { BASE_URL } from "./api-client";
-import { OverlayReview } from "./review";
+import { OverlayReview, SettingsMenu } from "./review";
 import { onDocumentClick } from "./reviews-everywhere";
 
 // todo; FROM ENV
@@ -44,6 +44,12 @@ console.log("Context menu will appear on click - Reviews Everywhere");
 
 // TODO: Move this into another file, process, build?? IDK??
 document.addEventListener("click", onDocumentClick);
+
+// Add extension settings menu
+van.add(
+  document.body,
+  SettingsMenu({ children: "Settings menu - Toggle context menu on click" }),
+);
 
 // TODO: Remove this event handler when the user disables it
 // Stop create review context menu from appearing on click

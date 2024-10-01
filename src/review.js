@@ -1,5 +1,13 @@
 import van from "vanjs-core";
 
+export function SettingsMenu({ children, id, position }) {
+  const { div } = van.tags;
+
+  const settingsMenu = div({}, children);
+
+  return settingsMenu;
+}
+
 /**
  *
  * @param {OverlayReviewProps} props
