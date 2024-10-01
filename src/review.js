@@ -1,9 +1,10 @@
 import van from "vanjs-core";
 
 export function SettingsMenu({ children, id, position }) {
-  const { div } = van.tags;
+  const { input, div } = van.tags;
 
-  const settingsMenu = div({}, children);
+  const toggleCreateReviewMenuOnClickInput = input({ type: "checkbox" });
+  const settingsMenu = div({}, toggleCreateReviewMenuOnClickInput);
 
   return settingsMenu;
 }
