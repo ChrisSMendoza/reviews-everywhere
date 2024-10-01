@@ -22,7 +22,12 @@ export function SettingsMenu({ children, id, position }) {
       // Stop create review context menu from appearing on click
       document.removeEventListener("click", onDocumentClick);
 
-      // TODO: Hide review menu if still open
+      // TODO: Share with module
+      const reviewMenuInDOM = document.querySelector("#add-review-overlay");
+
+      if (reviewMenuInDOM) {
+        reviewMenuInDOM.remove();
+      }
     }
   };
   const toggleCreateReviewMenuOnClickInput = input({
