@@ -50,7 +50,7 @@ api.post("/review", async (req, res) => {
  *
  * @returns {string} The parsed URL that's saved onto the `Review`. Used as reference when loading onto page. Note, query parameters are ignored.
  */
-function parseReviewUrl(href) {
+function _parseReviewUrl(href) {
   const url = new URL(href);
 
   // Example, joins 'https://origin.com' with '/pathname/just/path'
