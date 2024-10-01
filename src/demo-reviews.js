@@ -44,3 +44,7 @@ console.log("Context menu will appear on click - Reviews Everywhere");
 
 // TODO: Move this into another file, process, build?? IDK??
 document.addEventListener("click", onDocumentClick);
+
+// TODO: Remove this event handler when the user disables it
+// Stop create review context menu from appearing on click
+// document.removeEventListener("click", onDocumentClick);
