@@ -13,11 +13,12 @@ api.use(express.static("static"));
 // Use middleware to parse URL-encoded form data
 api.use(express.urlencoded({ extended: true }));
 
+// TODO: Do something with reviews that have no URL
 api.get("/reviews", async (req, res) => {
-  // TODO: Do something with reviews that have no URL
   // All reviews when no parameters are passed into `findMany`
   const reviews = await prisma.review.findMany({
     where: {
+      // TODO: Do we ignore query parameters? Right now it's the most strict matching'
       url: req.query.windowHref,
     },
   });
