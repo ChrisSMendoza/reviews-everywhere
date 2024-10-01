@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-import { onDocumentClick } from "./reviews-everywhere";
+import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 export function SettingsMenu({ children, id, position }) {
@@ -22,12 +22,8 @@ export function SettingsMenu({ children, id, position }) {
       // Stop create review context menu from appearing on click
       document.removeEventListener("click", onDocumentClick);
 
-      // TODO: Share with module
-      const reviewMenuInDOM = document.querySelector("#add-review-overlay");
-
-      if (reviewMenuInDOM) {
-        reviewMenuInDOM.remove();
-      }
+      // Assume the user wants to hide the Review Menu
+      removeReviewMenu();
     }
   };
   const toggleCreateReviewMenuOnClickInput = input({
