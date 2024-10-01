@@ -6,15 +6,8 @@ import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 export function SettingsMenu({ children, id, position }) {
   const { input, div } = van.tags;
 
-  // TODO: Handle checked / unchecked
   const onchange = (e) => {
     const showReviewMenuOnClick = e.target.checked;
-
-    console.log("toggleCreateReviewMenuOnClickInput onchange: e:", e);
-    console.log(
-      "toggleCreateReviewMenuOnClickInput onchange: showReviewMenuOnClick:",
-      showReviewMenuOnClick,
-    );
 
     if (showReviewMenuOnClick) {
       document.addEventListener("click", onDocumentClick);
@@ -26,12 +19,12 @@ export function SettingsMenu({ children, id, position }) {
       removeReviewMenu();
     }
   };
-  const toggleCreateReviewMenuOnClickInput = input({
+  const toggleReviewMenuOnClickInput = input({
     type: "checkbox",
     onchange,
   });
 
-  const settingsMenu = div({}, toggleCreateReviewMenuOnClickInput);
+  const settingsMenu = div({}, toggleReviewMenuOnClickInput);
 
   return settingsMenu;
 }
