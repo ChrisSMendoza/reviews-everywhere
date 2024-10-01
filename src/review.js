@@ -1,9 +1,17 @@
 import van from "vanjs-core";
 
+// TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 export function SettingsMenu({ children, id, position }) {
   const { input, div } = van.tags;
 
-  const toggleCreateReviewMenuOnClickInput = input({ type: "checkbox" });
+  const onchange = (e) => {
+    console.log("toggleCreateReviewMenuOnClickInput onchange!");
+  };
+  const toggleCreateReviewMenuOnClickInput = input({
+    type: "checkbox",
+    onchange,
+  });
+
   const settingsMenu = div({}, toggleCreateReviewMenuOnClickInput);
 
   return settingsMenu;
