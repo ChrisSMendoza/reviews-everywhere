@@ -8,13 +8,22 @@ export function SettingsMenu({ children, id, position }) {
 
   // TODO: Handle checked / unchecked
   const onchange = (e) => {
+    const showReviewMenuOnClick = e.target.checked;
+
+    console.log("toggleCreateReviewMenuOnClickInput onchange: e:", e);
     console.log(
-      "toggleCreateReviewMenuOnClickInput onchange!: onDocumentClick:",
-      onDocumentClick,
+      "toggleCreateReviewMenuOnClickInput onchange: showReviewMenuOnClick:",
+      showReviewMenuOnClick,
     );
 
-    // Stop create review context menu from appearing on click
-    document.removeEventListener("click", onDocumentClick);
+    if (showReviewMenuOnClick) {
+      // TODO: Re-enable showing review menu on click
+    } else {
+      // Stop create review context menu from appearing on click
+      document.removeEventListener("click", onDocumentClick);
+
+      // TODO: Hide review menu if still open
+    }
   };
   const toggleCreateReviewMenuOnClickInput = input({
     type: "checkbox",
