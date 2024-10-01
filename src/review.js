@@ -17,7 +17,7 @@ export function SettingsMenu({ children, id, position }) {
     );
 
     if (showReviewMenuOnClick) {
-      // TODO: Re-enable showing review menu on click
+      document.addEventListener("click", onDocumentClick);
     } else {
       // Stop create review context menu from appearing on click
       document.removeEventListener("click", onDocumentClick);
