@@ -46,7 +46,4 @@ console.log("Context menu will appear on click - Reviews Everywhere");
 document.addEventListener("click", onDocumentClick);
 
 // Add extension settings menu
-van.add(
-  document.body,
-  SettingsMenu({ children: "Settings menu - Toggle context menu on click" }),
-);
+van.add(document.body, SettingsMenu());

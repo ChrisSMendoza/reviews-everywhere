@@ -3,7 +3,7 @@ import van from "vanjs-core";
 import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
-export function SettingsMenu({ children, id, position }) {
+export function SettingsMenu() {
   const { input, div } = van.tags;
 
   const toggleReviewMenuOnClickInput = input({
