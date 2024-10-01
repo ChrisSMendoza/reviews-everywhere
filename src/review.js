@@ -1,11 +1,20 @@
 import van from "vanjs-core";
 
+import { onDocumentClick } from "./reviews-everywhere";
+
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 export function SettingsMenu({ children, id, position }) {
   const { input, div } = van.tags;
 
+  // TODO: Handle checked / unchecked
   const onchange = (e) => {
-    console.log("toggleCreateReviewMenuOnClickInput onchange!");
+    console.log(
+      "toggleCreateReviewMenuOnClickInput onchange!: onDocumentClick:",
+      onDocumentClick,
+    );
+
+    // Stop create review context menu from appearing on click
+    document.removeEventListener("click", onDocumentClick);
   };
   const toggleCreateReviewMenuOnClickInput = input({
     type: "checkbox",

@@ -50,7 +50,3 @@ van.add(
   document.body,
   SettingsMenu({ children: "Settings menu - Toggle context menu on click" }),
 );
-
-// TODO: Remove this event handler when the user disables it
-// Stop create review context menu from appearing on click
-// document.removeEventListener("click", onDocumentClick);
