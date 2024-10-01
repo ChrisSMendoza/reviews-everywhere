@@ -13,12 +13,13 @@ api.use(express.static("static"));
 // Use middleware to parse URL-encoded form data
 api.use(express.urlencoded({ extended: true }));
 
+// TODO: Do something with reviews that have no URL
 api.get("/reviews", async (req, res) => {
-  const url = parseReviewUrl(req.query.windowHref);
   // All reviews when no parameters are passed into `findMany`
   const reviews = await prisma.review.findMany({
     where: {
-      url,
+      // TODO: Do we ignore query parameters? Right now it's the most strict matching'
+      url: req.query.windowHref,
     },
   });
 
@@ -31,14 +32,13 @@ api.post("/review", async (req, res) => {
   const createReviewRequestBody = req.body;
   console.log("Create review", createReviewRequestBody);
 
-  // Parse href (full URL) from client so we only use `origin` and `pathname`.
-  // We ignore query parameters right now, but still have them available.
+  // Rename `windowHref` to `url` on Review
   const { windowHref, ...reviewWithoutUrl } = createReviewRequestBody;
-  const url = parseReviewUrl(windowHref);
+  const incomingReview = { url: windowHref, ...reviewWithoutUrl };
 
   try {
     const review = await prisma.review.create({
-      data: { ...reviewWithoutUrl, url },
+      data: incomingReview,
     });
   } catch (e) {
     console.error(e);
@@ -51,7 +51,7 @@ api.post("/review", async (req, res) => {
  *
  * @returns {string} The parsed URL that's saved onto the `Review`. Used as reference when loading onto page. Note, query parameters are ignored.
  */
-function parseReviewUrl(href) {
+function _parseReviewUrl(href) {
   const url = new URL(href);
 
   // Example, joins 'https://origin.com' with '/pathname/just/path'

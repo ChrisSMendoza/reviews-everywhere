@@ -31,6 +31,7 @@ export function Overlay({ children, id, position }) {
 
   const overlay = div({ class: "overlay-review" }, children);
 
+  // TODO: When is it missing? Get rid of this..
   if (id) {
     overlay.id = id;
   }
