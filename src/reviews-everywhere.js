@@ -8,11 +8,9 @@ import { CreateReviewForm, Overlay } from "./review.js";
  * @todo - Should we use PointerEvent? Seems like Firefox / Safari still use MouseEvents?
  */
 export function onDocumentClick(event) {
-  const addReviewMenuInDOM = document.querySelector("#add-review-overlay");
+  // Does nothing when missing from DOM
+  removeReviewMenu();
 
-  if (addReviewMenuInDOM) {
-    addReviewMenuInDOM.remove();
-  }
   // TODO: Add units prop so there's no string concatenation needed?
   const position = { top: `${event.clientY}px`, left: `${event.clientX}px` };
 
@@ -60,6 +58,14 @@ export function onDocumentClick(event) {
   });
 
   van.add(document.body, overlayReviewMenu);
+}
+
+export function removeReviewMenu() {
+  const reviewMenuInDOM = document.querySelector("#add-review-overlay");
+
+  if (reviewMenuInDOM) {
+    reviewMenuInDOM.remove();
+  }
 }
 
 const stopPropagationOnClick = (event) => event.stopPropagation();
