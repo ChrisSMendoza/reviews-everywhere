@@ -11,12 +11,12 @@ export function SettingsMenu() {
     type: "checkbox",
 
     onchange: (e) => {
-      const doesOpenReviewMenuOnClick = e.target.checked;
+      const shouldOpenReviewMenuOnClick = e.target.checked;
 
       // TODO: Abstract so this works for extension and browser page
-      browser.storage.local.set({ doesOpenReviewMenuOnClick });
+      browser.storage.local.set({ shouldOpenReviewMenuOnClick });
 
-      if (doesOpenReviewMenuOnClick) {
+      if (shouldOpenReviewMenuOnClick) {
         document.addEventListener("click", onDocumentClick);
       } else {
         // Stop create review context menu from appearing on click
