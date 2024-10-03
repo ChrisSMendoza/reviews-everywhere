@@ -15,6 +15,7 @@
   ],
 
   "permissions": [
+    "storage",
     "https://282e-2600-1700-5b24-a090-211f-4802-68b7-33a5.ngrok-free.app/*"
   ]
 }
