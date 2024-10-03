@@ -45,8 +45,18 @@ console.log("Context menu will appear on click - Reviews Everywhere");
 // TODO: Move this into another file, process, build?? IDK??
 document.addEventListener("click", onDocumentClick);
 
-console.log("Fetching user settings from extension local storage");
-browser.storage.local.get().then(console.log).catch(console.error);
+browser.storage.local
+  .get()
+  .then((storedKeys) => {
+    console.log(
+      "User settings from extension local storage retrieved",
+      storedKeys,
+    );
 
-// Add extension settings menu
-van.add(document.body, SettingsMenu());
+    const shouldOpenReviewMenuOnClick =
+      storedKeys.shouldOpenReviewMenuOnClick ?? true;
+
+    // Add extension settings menu with previously saved state (or defaults)
+    van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick }));
+  })
+  .catch(console.error);
