@@ -1,5 +1,38 @@
 import van from "vanjs-core";
 
+import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
+
+// TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
+//  Could export from reviews-everywhere since uses both imports?
+export function SettingsMenu() {
+  const { input, label } = van.tags;
+
+  const toggleReviewMenuOnClickInput = input({
+    type: "checkbox",
+
+    onchange: (e) => {
+      const showReviewMenuOnClick = e.target.checked;
+
+      if (showReviewMenuOnClick) {
+        document.addEventListener("click", onDocumentClick);
+      } else {
+        // Stop create review context menu from appearing on click
+        document.removeEventListener("click", onDocumentClick);
+
+        // Assume the user wants to hide the Review Menu
+        removeReviewMenu();
+      }
+    },
+  });
+
+  const settingsMenu = label(
+    toggleReviewMenuOnClickInput,
+    "Open review menu on click",
+  );
+
+  return settingsMenu;
+}
+
 /**
  *
  * @param {OverlayReviewProps} props
