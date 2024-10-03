@@ -40,10 +40,28 @@ async function loadReviews() {
 
 loadReviews().then(console.log).catch(console.error);
 
-console.log("Context menu will appear on click - Reviews Everywhere");
+// TODO: Only use this when we know it's being used in the Firefox extension. Separate builds attempt?
 
-// TODO: Move this into another file, process, build?? IDK??
-document.addEventListener("click", onDocumentClick);
+// Load user settings that are stored in extension's local storage.
+// Note, not exactly like a web page's local storage (`window.localStorage`)
+browser.storage.local
+  .get()
+  .then((storedKeys) => {
+    console.log(
+      "User settings from extension local storage retrieved",
+      storedKeys,
+    );
 
-// Add extension settings menu
-van.add(document.body, SettingsMenu());
+    const shouldOpenReviewMenuOnClick =
+      storedKeys.shouldOpenReviewMenuOnClick ?? true;
+
+    if (shouldOpenReviewMenuOnClick) {
+      document.addEventListener("click", onDocumentClick);
+
+      console.log("Review menu will open on click - Reviews Everywhere");
+    }
+
+    // Add extension settings menu with previously saved state (or defaults)
+    van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick }));
+  })
+  .catch(console.error);

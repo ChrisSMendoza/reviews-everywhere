@@ -4,16 +4,25 @@ import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 //  Could export from reviews-everywhere since uses both imports?
-export function SettingsMenu() {
+/**
+ *
+ * @param {{ shouldOpenReviewMenuOnClick: boolean }} props
+ */
+export function SettingsMenu(props) {
   const { input, label } = van.tags;
 
   const toggleReviewMenuOnClickInput = input({
     type: "checkbox",
 
-    onchange: (e) => {
-      const showReviewMenuOnClick = e.target.checked;
+    checked: props.shouldOpenReviewMenuOnClick,
 
-      if (showReviewMenuOnClick) {
+    onchange: (e) => {
+      const shouldOpenReviewMenuOnClick = e.target.checked;
+
+      // TODO: Abstract so this works for extension and browser page
+      browser.storage.local.set({ shouldOpenReviewMenuOnClick });
+
+      if (shouldOpenReviewMenuOnClick) {
         document.addEventListener("click", onDocumentClick);
       } else {
         // Stop create review context menu from appearing on click
