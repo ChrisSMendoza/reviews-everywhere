@@ -42,9 +42,6 @@ loadReviews().then(console.log).catch(console.error);
 
 console.log("Context menu will appear on click - Reviews Everywhere");
 
-// TODO: Move this into another file, process, build?? IDK??
-document.addEventListener("click", onDocumentClick);
-
 browser.storage.local
   .get()
   .then((storedKeys) => {
@@ -55,6 +52,10 @@ browser.storage.local
 
     const shouldOpenReviewMenuOnClick =
       storedKeys.shouldOpenReviewMenuOnClick ?? true;
+
+    if (shouldOpenReviewMenuOnClick) {
+      document.addEventListener("click", onDocumentClick);
+    }
 
     // Add extension settings menu with previously saved state (or defaults)
     van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick }));
