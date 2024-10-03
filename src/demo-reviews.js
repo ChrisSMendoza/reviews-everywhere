@@ -40,6 +40,8 @@ async function loadReviews() {
 
 loadReviews().then(console.log).catch(console.error);
 
+// TODO: Only use this when we know it's being used in the Firefox extension. Separate builds attempt?
+
 // Load user settings that are stored in extension's local storage.
 // Note, not exactly like a web page's local storage (`window.localStorage`)
 browser.storage.local
