@@ -40,8 +40,7 @@ async function loadReviews() {
 
 loadReviews().then(console.log).catch(console.error);
 
-console.log("Context menu will appear on click - Reviews Everywhere");
-
+//
 browser.storage.local
   .get()
   .then((storedKeys) => {
@@ -55,6 +54,8 @@ browser.storage.local
 
     if (shouldOpenReviewMenuOnClick) {
       document.addEventListener("click", onDocumentClick);
+
+      console.log("Review menu will open on click - Reviews Everywhere");
     }
 
     // Add extension settings menu with previously saved state (or defaults)
