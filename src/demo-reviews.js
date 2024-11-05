@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-import { BASE_URL } from "./api-client";
+import { getBaseUrl } from "./api-client";
 import { OverlayReview, SettingsMenu } from "./review";
 import { onDocumentClick } from "./reviews-everywhere";
 
@@ -10,11 +10,13 @@ import { onDocumentClick } from "./reviews-everywhere";
 // if extension, then use hosted version
 // should be set by env / build process
 
-async function loadReviews() {
-  const getReviewsRequest = new URL(`${BASE_URL}/reviews`);
-
-  // Filter reviews that were created on this page
+async function loadReviews(baseURL = getBaseUrl()) {
+  const getReviewsUrl = `${baseURL}/reviews`;
+  const getReviewsRequest = new URL(getReviewsUrl);
+  
   getReviewsRequest.searchParams.append("windowHref", window.location.href);
+
+  console.log("Fetching reviews", { getReviewsRequest });
 
   const reviewsResponse = await fetch(getReviewsRequest);
 
@@ -40,28 +42,3 @@ async function loadReviews() {
 
 loadReviews().then(console.log).catch(console.error);
 
-// TODO: Only use this when we know it's being used in the Firefox extension. Separate builds attempt?
-
-// Load user settings that are stored in extension's local storage.
-// Note, not exactly like a web page's local storage (`window.localStorage`)
-browser.storage.local
-  .get()
-  .then((storedKeys) => {
-    console.log(
-      "User settings from extension local storage retrieved",
-      storedKeys,
-    );
-
-    const shouldOpenReviewMenuOnClick =
-      storedKeys.shouldOpenReviewMenuOnClick ?? true;
-
-    if (shouldOpenReviewMenuOnClick) {
-      document.addEventListener("click", onDocumentClick);
-
-      console.log("Review menu will open on click - Reviews Everywhere");
-    }
-
-    // Add extension settings menu with previously saved state (or defaults)
-    van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick }));
-  })
-  .catch(console.error);
