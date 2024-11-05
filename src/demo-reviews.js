@@ -44,3 +44,6 @@ async function loadReviews(baseURL) {
 }
 
 loadReviews(getBaseUrl()).then(console.log).catch(console.error);
+
+// Always listen for clicks to create a review when demo is loaded
+document.addEventListener("click", onDocumentClick);
