@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-import { getBaseUrl } from "./api-client";
+import { BASE_URL } from "./api-client";
 import { OverlayReview, SettingsMenu } from "./review";
 import { onDocumentClick } from "./reviews-everywhere";
 
@@ -43,7 +43,7 @@ async function loadReviews(baseURL) {
   }
 }
 
-loadReviews(getBaseUrl()).then(console.log).catch(console.error);
+loadReviews(BASE_URL).then(console.log).catch(console.error);
 
 // Always listen for clicks to create a review when demo is loaded
 document.addEventListener("click", onDocumentClick);
