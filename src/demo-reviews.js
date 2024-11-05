@@ -10,10 +10,13 @@ import { onDocumentClick } from "./reviews-everywhere";
 // if extension, then use hosted version
 // should be set by env / build process
 
-async function loadReviews(baseURL = getBaseUrl()) {
+/**
+ * @param {string} baseURL - The base URL of the API
+ */
+async function loadReviews(baseURL) {
   const getReviewsUrl = `${baseURL}/reviews`;
   const getReviewsRequest = new URL(getReviewsUrl);
-  
+
   getReviewsRequest.searchParams.append("windowHref", window.location.href);
 
   console.log("Fetching reviews", { getReviewsRequest });
@@ -40,5 +43,4 @@ async function loadReviews(baseURL = getBaseUrl()) {
   }
 }
 
-loadReviews().then(console.log).catch(console.error);
-
+loadReviews(getBaseUrl()).then(console.log).catch(console.error);
