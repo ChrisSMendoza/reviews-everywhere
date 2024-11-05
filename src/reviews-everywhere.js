@@ -17,12 +17,13 @@ export function onDocumentClick(event) {
 
   // TODO: Seems inefficient to create this on every click, but it's not a big deal??
   const baseURL = getBaseUrl();
+  const createReviewUrl = `${baseURL}/review`;
 
   // We stop the click event from bubbling up so
   // the form doesn't move when the user clicks it
   const createReviewForm = CreateReviewForm({
     // Guess the action would only benefit when JS is disabled? Do extensions run in that case (different runtime?)?
-    action: `${baseURL}/review`,
+    action: createReviewUrl,
 
     // Learned that action uses: `Content-Type: application/x-www-form-urlencoded`
     // While the fetch POST with formData uses `: multipart/form-data`
@@ -38,7 +39,6 @@ export function onDocumentClick(event) {
       // Add current webpage URL to payload, parsed on backend for origin + pathname (ignore query params)
       createReviewSearchParams.set("windowHref", window.location.href);
 
-      const createReviewUrl = `${baseURL}/review`;
       const createReviewRequest = new Request(createReviewUrl, {
         method: "POST",
         body: createReviewSearchParams,
