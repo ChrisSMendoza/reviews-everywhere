@@ -1,6 +1,6 @@
 import van from "vanjs-core";
 
-import { getBaseUrl } from "./api-client.js";
+import { BASE_URL } from "./api-client.js";
 import { CreateReviewForm, Overlay } from "./review.js";
 
 /**
@@ -15,9 +15,7 @@ export function onDocumentClick(event) {
   // TODO: Add units prop so there's no string concatenation needed?
   const position = { top: `${event.clientY}px`, left: `${event.clientX}px` };
 
-  // TODO: Seems inefficient to create this on every click, but it's not a big deal??
-  const baseURL = getBaseUrl();
-  const createReviewUrl = `${baseURL}/review`;
+  const createReviewUrl = `${BASE_URL}/review`;
 
   // We stop the click event from bubbling up so
   // the form doesn't move when the user clicks it
