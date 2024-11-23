@@ -35,9 +35,38 @@ export function SettingsMenu(props) {
     },
   });
 
-  const settingsMenu = label(
+  const toggleShowReviewsInput = input({
+    type: "checkbox",
+
+    checked: props.shouldShowReviews,
+
+    onchange: (e) => {
+      const shouldShowReviews = e.target.checked;
+
+      props.setSettings({ shouldShowReviews });
+
+      if (shouldShowReviews) {
+        console.log("Show reviews");
+      } else {
+
+      }
+    },
+  });
+
+  const toggleReviewMenuOnClickInputWithLabel = label(
     toggleReviewMenuOnClickInput,
     "Open review menu on click",
+  );
+
+  const toggleShowReviewsInputWithLabel = label(
+    toggleShowReviewsInput,
+    "Show reviews",
+  );
+
+  const settingsMenu = van.tags.div(
+    { class: "re-settings-menu" },
+    toggleReviewMenuOnClickInputWithLabel,
+    toggleShowReviewsInputWithLabel,
   );
 
   return settingsMenu;
