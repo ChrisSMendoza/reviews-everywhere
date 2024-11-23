@@ -1,11 +1,18 @@
-.overlay-review {
+.overlay {
   position: absolute;
   z-index: 99;
+}
 
+.review {
   background-color: white;
 }
 
 .icon {
   height: 1rem;
   width: 1rem;
+}
+
+/* Attach to `<html>` to hide all reviews */
+.hide-reviews-everywhere .overlay .review {
+  visibility: hidden;
 }

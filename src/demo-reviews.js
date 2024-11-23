@@ -1,7 +1,7 @@
 import van from "vanjs-core";
 
 import { BASE_URL } from "./api-client";
-import { OverlayReview, SettingsMenu } from "./review";
+import { OverlayReview, SettingsMenu, hideReviews } from "./review";
 import { onDocumentClick } from "./reviews-everywhere";
 
 // todo; FROM ENV
@@ -48,20 +48,36 @@ loadReviews(BASE_URL).then(console.log).catch(console.error);
 
 // Load the setting from storage
 const openReviewMenuOnClickFromStorage = localStorage.getItem("shouldOpenReviewMenuOnClick") ?? "true";
+const shouldShowReviewsFromStorage = localStorage.getItem("shouldShowReviews") ?? "true";
 
 const shouldOpenReviewMenuOnClick = openReviewMenuOnClickFromStorage === "true";
+const shouldShowReviews = shouldShowReviewsFromStorage === "true";
 
 console.log("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
+console.log("shouldShowReviews", shouldShowReviews);
 
 if (shouldOpenReviewMenuOnClick) {
   document.addEventListener("click", onDocumentClick);
 }
 
-function setSettings({ shouldOpenReviewMenuOnClick }) {
-  localStorage.setItem("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
+if (!shouldShowReviews) {
+  hideReviews();
+}
 
-  console.log("Settings saved in local storage", { shouldOpenReviewMenuOnClick });
+// TODO: Setters for each setting?
+function setSettings({ shouldOpenReviewMenuOnClick, shouldShowReviews }) {
+  // Explicitly check for undefined because false is a valid value
+
+  if(shouldOpenReviewMenuOnClick !== undefined) {
+    localStorage.setItem("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
+  }
+
+  if(shouldShowReviews !== undefined) {
+    localStorage.setItem("shouldShowReviews", shouldShowReviews);
+  }
+
+  console.log("Settings saved in local storage", { shouldOpenReviewMenuOnClick, shouldShowReviews });
 }
 
 // Add extension settings menu with previously saved state (or defaults)
-van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, setSettings }));
+van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, shouldShowReviews, setSettings }));

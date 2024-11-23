@@ -7,7 +7,11 @@ import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 // TODO: Define `settings` param type as object, or specific keys
 /**
  *
- * @param {{ shouldOpenReviewMenuOnClick: boolean, setSettings(settings) => void  }} props
+ * @param {{
+ *  shouldOpenReviewMenuOnClick: boolean,
+ *  shouldShowReviews: boolean
+ *  setSettings(settings) => void
+ * }} props
  */
 export function SettingsMenu(props) {
   const { input, label } = van.tags;
@@ -35,12 +39,45 @@ export function SettingsMenu(props) {
     },
   });
 
-  const settingsMenu = label(
+  const toggleShowReviewsInput = input({
+    type: "checkbox",
+
+    checked: props.shouldShowReviews,
+
+    onchange: (e) => {
+      const shouldShowReviews = e.target.checked;
+
+      props.setSettings({ shouldShowReviews });
+
+      if (shouldShowReviews) {
+        document.querySelector("html").classList.remove("hide-reviews-everywhere");
+      } else {
+        hideReviews();
+      }
+    },
+  });
+
+  const toggleReviewMenuOnClickInputWithLabel = label(
     toggleReviewMenuOnClickInput,
     "Open review menu on click",
   );
 
+  const toggleShowReviewsInputWithLabel = label(
+    toggleShowReviewsInput,
+    "Show reviews",
+  );
+
+  const settingsMenu = van.tags.form(
+    { class: "re-settings-menu" },
+    toggleReviewMenuOnClickInputWithLabel,
+    toggleShowReviewsInputWithLabel,
+  );
+
   return settingsMenu;
+}
+
+export function hideReviews() {
+  document.querySelector("html").classList.add("hide-reviews-everywhere");
 }
 
 /**
@@ -66,13 +103,13 @@ export function Review({ review }) {
   const reviewText = p({ textContent: review.text });
   const reviewStars = ReviewStars(review);
 
-  return div({}, reviewText, reviewStars);
+  return div({ class: "review" }, reviewText, reviewStars);
 }
 
 export function Overlay({ children, id, position }) {
   const { div } = van.tags;
 
-  const overlay = div({ class: "overlay-review" }, children);
+  const overlay = div({ class: "overlay" }, children);
 
   // TODO: When is it missing? Get rid of this..
   if (id) {
