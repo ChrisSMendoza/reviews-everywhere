@@ -55,5 +55,11 @@ const shouldOpenReviewMenuOnClick = openReviewMenuOnClickFromStorage === "true";
 
 console.log("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
 
+function setSettings({ shouldOpenReviewMenuOnClick }) {
+  localStorage.setItem("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
+
+  console.log("Settings saved in local storage", { shouldOpenReviewMenuOnClick });
+}
+
 // Add extension settings menu with previously saved state (or defaults)
-van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick }));
+van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, setSettings }));

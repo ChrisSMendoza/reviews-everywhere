@@ -4,9 +4,10 @@ import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 //  Could export from reviews-everywhere since uses both imports?
+// TODO: Define params for `setSettings`
 /**
  *
- * @param {{ shouldOpenReviewMenuOnClick: boolean }} props
+ * @param {{ shouldOpenReviewMenuOnClick: boolean, setSettings: Function }} props
  */
 export function SettingsMenu(props) {
   const { input, label } = van.tags;
@@ -20,7 +21,9 @@ export function SettingsMenu(props) {
       const shouldOpenReviewMenuOnClick = e.target.checked;
 
       // TODO: Abstract so this works for extension and browser page
-      browser.storage.local.set({ shouldOpenReviewMenuOnClick });
+      props.setSettings({ shouldOpenReviewMenuOnClick });
+      // TODO: Use this only in the extension
+      // browser.storage.local.set({ shouldOpenReviewMenuOnClick });
 
       if (shouldOpenReviewMenuOnClick) {
         document.addEventListener("click", onDocumentClick);
