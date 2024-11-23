@@ -22,8 +22,6 @@ export function SettingsMenu(props) {
 
       // TODO: Abstract so this works for extension and browser page
       props.setSettings({ shouldOpenReviewMenuOnClick });
-      // TODO: Use this only in the extension
-      // browser.storage.local.set({ shouldOpenReviewMenuOnClick });
 
       if (shouldOpenReviewMenuOnClick) {
         document.addEventListener("click", onDocumentClick);
