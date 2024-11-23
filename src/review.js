@@ -50,9 +50,9 @@ export function SettingsMenu(props) {
       props.setSettings({ shouldShowReviews });
 
       if (shouldShowReviews) {
-        console.log("Show reviews");
+        document.querySelector("html").classList.remove("hide-reviews-everywhere");
       } else {
-
+        document.querySelector("html").classList.add("hide-reviews-everywhere");
       }
     },
   });
