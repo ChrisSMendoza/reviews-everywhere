@@ -45,8 +45,6 @@ async function loadReviews(baseURL) {
 
 loadReviews(BASE_URL).then(console.log).catch(console.error);
 
-// Always listen for clicks to create a review when demo is loaded
-document.addEventListener("click", onDocumentClick);
 
 // Load the setting from storage
 const openReviewMenuOnClickFromStorage = localStorage.getItem("shouldOpenReviewMenuOnClick") ?? "true";
@@ -54,6 +52,10 @@ const openReviewMenuOnClickFromStorage = localStorage.getItem("shouldOpenReviewM
 const shouldOpenReviewMenuOnClick = openReviewMenuOnClickFromStorage === "true";
 
 console.log("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
+
+if (shouldOpenReviewMenuOnClick) {
+  document.addEventListener("click", onDocumentClick);
+}
 
 function setSettings({ shouldOpenReviewMenuOnClick }) {
   localStorage.setItem("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
