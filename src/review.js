@@ -67,7 +67,7 @@ export function SettingsMenu(props) {
     "Show reviews",
   );
 
-  const settingsMenu = van.tags.div(
+  const settingsMenu = van.tags.form(
     { class: "re-settings-menu" },
     toggleReviewMenuOnClickInputWithLabel,
     toggleShowReviewsInputWithLabel,
