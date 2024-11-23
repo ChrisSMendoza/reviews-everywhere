@@ -103,13 +103,13 @@ export function Review({ review }) {
   const reviewText = p({ textContent: review.text });
   const reviewStars = ReviewStars(review);
 
-  return div({}, reviewText, reviewStars);
+  return div({ class: "review" }, reviewText, reviewStars);
 }
 
 export function Overlay({ children, id, position }) {
   const { div } = van.tags;
 
-  const overlay = div({ class: "overlay-review" }, children);
+  const overlay = div({ class: "overlay" }, children);
 
   // TODO: When is it missing? Get rid of this..
   if (id) {
