@@ -52,7 +52,7 @@ export function SettingsMenu(props) {
       if (shouldShowReviews) {
         document.querySelector("html").classList.remove("hide-reviews-everywhere");
       } else {
-        document.querySelector("html").classList.add("hide-reviews-everywhere");
+        hideReviews();
       }
     },
   });
@@ -74,6 +74,10 @@ export function SettingsMenu(props) {
   );
 
   return settingsMenu;
+}
+
+export function hideReviews() {
+  document.querySelector("html").classList.add("hide-reviews-everywhere");
 }
 
 /**

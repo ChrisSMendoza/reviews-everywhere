@@ -1,7 +1,7 @@
 import van from "vanjs-core";
 
 import { BASE_URL } from "./api-client";
-import { OverlayReview, SettingsMenu } from "./review";
+import { OverlayReview, SettingsMenu, hideReviews } from "./review";
 import { onDocumentClick } from "./reviews-everywhere";
 
 // todo; FROM ENV
@@ -61,7 +61,7 @@ if (shouldOpenReviewMenuOnClick) {
 }
 
 if (!shouldShowReviews) {
-  document.querySelector("html").classList.add("hide-reviews-everywhere");
+  hideReviews();
 }
 
 // TODO: Setters for each setting?
