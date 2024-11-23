@@ -47,3 +47,10 @@ loadReviews(BASE_URL).then(console.log).catch(console.error);
 
 // Always listen for clicks to create a review when demo is loaded
 document.addEventListener("click", onDocumentClick);
+
+
+const openReviewMenuOnClickFromStorage = localStorage.getItem("shouldOpenReviewMenuOnClick") ?? "true";
+
+const shouldOpenReviewMenuOnClick = openReviewMenuOnClickFromStorage === "true";
+
+console.log("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
