@@ -7,7 +7,11 @@ import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 // TODO: Define `settings` param type as object, or specific keys
 /**
  *
- * @param {{ shouldOpenReviewMenuOnClick: boolean, setSettings(settings) => void  }} props
+ * @param {{
+ *  shouldOpenReviewMenuOnClick: boolean,
+ *  shouldShowReviews: boolean
+ *  setSettings(settings) => void
+ * }} props
  */
 export function SettingsMenu(props) {
   const { input, label } = van.tags;

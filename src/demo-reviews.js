@@ -48,20 +48,24 @@ loadReviews(BASE_URL).then(console.log).catch(console.error);
 
 // Load the setting from storage
 const openReviewMenuOnClickFromStorage = localStorage.getItem("shouldOpenReviewMenuOnClick") ?? "true";
+const shouldShowReviewsFromStorage = localStorage.getItem("shouldShowReviews") ?? "true";
 
 const shouldOpenReviewMenuOnClick = openReviewMenuOnClickFromStorage === "true";
+const shouldShowReviews = shouldShowReviewsFromStorage === "true";
 
 console.log("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
+console.log("shouldShowReviews", shouldShowReviews);
 
 if (shouldOpenReviewMenuOnClick) {
   document.addEventListener("click", onDocumentClick);
 }
-
-function setSettings({ shouldOpenReviewMenuOnClick }) {
+// TODO: Figure out state so I don't reset these to `undefined` when toggling individual settings
+function setSettings({ shouldOpenReviewMenuOnClick, shouldShowReviews }) {
   localStorage.setItem("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
+  localStorage.setItem("shouldShowReviews", shouldShowReviews);
 
-  console.log("Settings saved in local storage", { shouldOpenReviewMenuOnClick });
+  console.log("Settings saved in local storage", { shouldOpenReviewMenuOnClick, shouldShowReviews });
 }
 
 // Add extension settings menu with previously saved state (or defaults)
-van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, setSettings }));
+van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, shouldShowReviews, setSettings }));
