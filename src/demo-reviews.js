@@ -59,6 +59,11 @@ console.log("shouldShowReviews", shouldShowReviews);
 if (shouldOpenReviewMenuOnClick) {
   document.addEventListener("click", onDocumentClick);
 }
+
+if (!shouldShowReviews) {
+  document.querySelector("html").classList.add("hide-reviews-everywhere");
+}
+
 // TODO: Setters for each setting?
 function setSettings({ shouldOpenReviewMenuOnClick, shouldShowReviews }) {
   // Explicitly check for undefined because false is a valid value
