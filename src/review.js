@@ -4,10 +4,10 @@ import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 //  Could export from reviews-everywhere since uses both imports?
-// TODO: Define params for `setSettings`
+// TODO: Define `settings` param type as object, or specific keys
 /**
  *
- * @param {{ shouldOpenReviewMenuOnClick: boolean, setSettings: Function }} props
+ * @param {{ shouldOpenReviewMenuOnClick: boolean, setSettings(settings) => void  }} props
  */
 export function SettingsMenu(props) {
   const { input, label } = van.tags;
