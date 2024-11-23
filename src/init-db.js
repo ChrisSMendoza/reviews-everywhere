@@ -6,6 +6,9 @@ async function main() {
   const review = await prisma.review.create({
     data: {
       text: "This is the first persisted review",
+      top: "10px",
+      left: "20px",
+      url: "http://localhost:3000/",
     },
   });
   console.log("New Review:");

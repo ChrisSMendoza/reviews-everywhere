@@ -8,17 +8,20 @@ import { CreateReviewForm, Overlay } from "./review.js";
  * @todo - Should we use PointerEvent? Seems like Firefox / Safari still use MouseEvents?
  */
 export function onDocumentClick(event) {
+
   // Does nothing when missing from DOM
   removeReviewMenu();
 
   // TODO: Add units prop so there's no string concatenation needed?
   const position = { top: `${event.clientY}px`, left: `${event.clientX}px` };
 
+  const createReviewUrl = `${BASE_URL}/review`;
+
   // We stop the click event from bubbling up so
   // the form doesn't move when the user clicks it
   const createReviewForm = CreateReviewForm({
     // Guess the action would only benefit when JS is disabled? Do extensions run in that case (different runtime?)?
-    action: `${BASE_URL}/review`,
+    action: createReviewUrl,
 
     // Learned that action uses: `Content-Type: application/x-www-form-urlencoded`
     // While the fetch POST with formData uses `: multipart/form-data`
@@ -34,7 +37,6 @@ export function onDocumentClick(event) {
       // Add current webpage URL to payload, parsed on backend for origin + pathname (ignore query params)
       createReviewSearchParams.set("windowHref", window.location.href);
 
-      const createReviewUrl = `${BASE_URL}/review`;
       const createReviewRequest = new Request(createReviewUrl, {
         method: "POST",
         body: createReviewSearchParams,
