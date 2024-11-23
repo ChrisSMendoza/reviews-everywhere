@@ -48,9 +48,12 @@ loadReviews(BASE_URL).then(console.log).catch(console.error);
 // Always listen for clicks to create a review when demo is loaded
 document.addEventListener("click", onDocumentClick);
 
-
+// Load the setting from storage
 const openReviewMenuOnClickFromStorage = localStorage.getItem("shouldOpenReviewMenuOnClick") ?? "true";
 
 const shouldOpenReviewMenuOnClick = openReviewMenuOnClickFromStorage === "true";
 
 console.log("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
+
+// Add extension settings menu with previously saved state (or defaults)
+van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick }));
