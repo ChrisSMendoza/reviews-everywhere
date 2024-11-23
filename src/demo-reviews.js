@@ -59,10 +59,17 @@ console.log("shouldShowReviews", shouldShowReviews);
 if (shouldOpenReviewMenuOnClick) {
   document.addEventListener("click", onDocumentClick);
 }
-// TODO: Figure out state so I don't reset these to `undefined` when toggling individual settings
+// TODO: Setters for each setting?
 function setSettings({ shouldOpenReviewMenuOnClick, shouldShowReviews }) {
-  localStorage.setItem("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
-  localStorage.setItem("shouldShowReviews", shouldShowReviews);
+  // Explicitly check for undefined because false is a valid value
+
+  if(shouldOpenReviewMenuOnClick !== undefined) {
+    localStorage.setItem("shouldOpenReviewMenuOnClick", shouldOpenReviewMenuOnClick);
+  }
+
+  if(shouldShowReviews !== undefined) {
+    localStorage.setItem("shouldShowReviews", shouldShowReviews);
+  }
 
   console.log("Settings saved in local storage", { shouldOpenReviewMenuOnClick, shouldShowReviews });
 }
