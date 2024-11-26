@@ -143,17 +143,22 @@ export function Overlay({ children, id, position }) {
 export const ReviewStarButtons = ({ setNumStars }) => {
   const { button } = van.tags;
 
-  const starButtons = [
-    button({ textContent: "First", onclick: (e) => {
-      e.preventDefault();
-      setNumStars(1);
-      console.log("First")} 
-    }),
-    button({ textContent: "Second" }),
-    button({ textContent: "Third" }),
-    button({ textContent: "Fourth" }),
-    button({ textContent: "Fifth" }),
-  ];
+  const maxNumStars = 5;
+  const starButtons = [];
+
+  for(let i = 0; i < maxNumStars; i++) {
+    const numStars = i + 1;
+
+    starButtons.push(
+      button({
+        textContent: numStars,
+        onclick: (e) => {
+          e.preventDefault();
+          setNumStars(numStars);
+        }
+      })
+    );
+  }
 
   return starButtons;
 }
@@ -227,7 +232,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
     numStarsInput.value = numStars;
   }
   const reviewStarButtons = ReviewStarButtons({ setNumStars });
-
+  // TODO: Fix submit, just show submit button..
   return form(
     {
       method: "post",
