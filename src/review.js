@@ -140,11 +140,15 @@ export function Overlay({ children, id, position }) {
  * @property {Position} position
  */
 
-export const ReviewStarButtons = () => {
+export const ReviewStarButtons = ({ setNumStars }) => {
   const { button } = van.tags;
 
   const starButtons = [
-    button({ textContent: "First", onclick: () => console.log("First") }),
+    button({ textContent: "First", onclick: (e) => {
+      e.preventDefault();
+      setNumStars(1);
+      console.log("First")} 
+    }),
     button({ textContent: "Second" }),
     button({ textContent: "Third" }),
     button({ textContent: "Fourth" }),
@@ -219,6 +223,11 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
   // TODO: See if we can remove this, maybe when number input is hidden?
   const submitInput = input({ type: "submit", hidden: true });
 
+  function setNumStars(numStars) {
+    numStarsInput.value = numStars;
+  }
+  const reviewStarButtons = ReviewStarButtons({ setNumStars });
+
   return form(
     {
       method: "post",
@@ -227,6 +236,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
       onclick,
     },
     reviewTextInput,
+    reviewStarButtons,
     numStarsInput,
     topInput,
     leftInput,

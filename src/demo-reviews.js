@@ -81,6 +81,3 @@ function setSettings({ shouldOpenReviewMenuOnClick, shouldShowReviews }) {
 
 // Add extension settings menu with previously saved state (or defaults)
 van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, shouldShowReviews, setSettings }));
-
-
-van.add(document.body, ReviewStarButtons());
