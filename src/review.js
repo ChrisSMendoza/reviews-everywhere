@@ -151,12 +151,11 @@ export const ReviewStarButtons = ({ setNumStars }) => {
 
     starButtons.push(
       button({
-        textContent: numStars,
         onclick: (e) => {
           e.preventDefault();
           setNumStars(numStars);
         }
-      })
+      }, StarOutline())
     );
   }
 
