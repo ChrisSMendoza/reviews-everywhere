@@ -1,7 +1,7 @@
 import van from "vanjs-core";
 
 import { BASE_URL } from "./api-client";
-import { OverlayReview, SettingsMenu, hideReviews } from "./review";
+import { OverlayReview, ReviewStarButtons, SettingsMenu, hideReviews } from "./review";
 import { onDocumentClick } from "./reviews-everywhere";
 
 // todo; FROM ENV
@@ -81,3 +81,6 @@ function setSettings({ shouldOpenReviewMenuOnClick, shouldShowReviews }) {
 
 // Add extension settings menu with previously saved state (or defaults)
 van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, shouldShowReviews, setSettings }));
+
+
+van.add(document.body, ReviewStarButtons());

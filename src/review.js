@@ -140,6 +140,20 @@ export function Overlay({ children, id, position }) {
  * @property {Position} position
  */
 
+export const ReviewStarButtons = () => {
+  const { button } = van.tags;
+
+  const starButtons = [
+    button({ textContent: "First" }),
+    button({ textContent: "Second" }),
+    button({ textContent: "Third" }),
+    button({ textContent: "Fourth" }),
+    button({ textContent: "Fifth" }),
+  ];
+
+  return starButtons;
+}
+
 const { path, svg } = van.tagsNS("http://www.w3.org/2000/svg");
 
 export const StarOutline = () =>
