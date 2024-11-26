@@ -144,7 +144,7 @@ export const ReviewStarButtons = () => {
   const { button } = van.tags;
 
   const starButtons = [
-    button({ textContent: "First" }),
+    button({ textContent: "First", onclick: () => console.log("First") }),
     button({ textContent: "Second" }),
     button({ textContent: "Third" }),
     button({ textContent: "Fourth" }),
@@ -207,6 +207,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
   const { form, input } = van.tags;
 
   const reviewTextInput = input({ name: "text" });
+  const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5 });
 
   const topInput = input({ name: "top", type: "hidden", value: position.top });
   const leftInput = input({
@@ -214,6 +215,9 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
     type: "hidden",
     value: position.left,
   });
+  // Enables submit with Enter key, needed after number input was added
+  // TODO: See if we can remove this, maybe when number input is hidden?
+  const submitInput = input({ type: "submit", hidden: true });
 
   return form(
     {
@@ -223,7 +227,9 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
       onclick,
     },
     reviewTextInput,
+    numStarsInput,
     topInput,
     leftInput,
+    submitInput
   );
 }
