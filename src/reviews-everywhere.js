@@ -1,7 +1,7 @@
 import van from "vanjs-core";
 
 import { BASE_URL } from "./api-client.js";
-import { CreateReviewForm, Overlay } from "./review.js";
+import { CreateReviewForm, Overlay, OverlayReview } from "./review.js";
 
 /**
  * @param {MouseEvent} event
@@ -26,7 +26,7 @@ export function onDocumentClick(event) {
     // Learned that action uses: `Content-Type: application/x-www-form-urlencoded`
     // While the fetch POST with formData uses `: multipart/form-data`
 
-    onsubmit: (e) => {
+    onsubmit: async (e) => {
       // Stop redirect caused by default submit
       e.preventDefault();
 
@@ -47,7 +47,23 @@ export function onDocumentClick(event) {
         },
       });
 
-      fetch(createReviewRequest).then(console.log).catch(console.error);
+      const createReviewResponse = await fetch(createReviewRequest);
+
+      if (createReviewResponse.ok) {
+        // Hide the Review Menu to show the new review
+        removeReviewMenu();
+
+        const review = await createReviewResponse.json();
+        const overlayReview = OverlayReview({
+          review,
+          position: { left: review.left, top: review.top },
+        });
+
+        van.add(document.body, overlayReview);
+
+      } else {
+        console.error("Failed to create review", createReviewResponse);
+      }
     },
     onclick: stopPropagationOnClick,
     position,

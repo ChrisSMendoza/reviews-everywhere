@@ -46,10 +46,12 @@ api.post("/review", async (req, res) => {
     });
     console.log("Review created", review);
 
+    res.send(review);
+
   } catch (e) {
     console.error(e);
+    res.status(400).send(`Failed to create review`);
   }
-  res.send(`Review created`);
 });
 
 /**
