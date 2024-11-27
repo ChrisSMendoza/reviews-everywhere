@@ -36,9 +36,13 @@ api.post("/review", async (req, res) => {
   const { windowHref, ...reviewWithoutUrl } = createReviewRequestBody;
   const incomingReview = { url: windowHref, ...reviewWithoutUrl };
 
+  // TODO: Handle null case (missing stars)
+  // Form data is submitted as string, but number of stars is a number (lol)
+  const stars = Number(incomingReview.stars);
+
   try {
     const review = await prisma.review.create({
-      data: incomingReview,
+      data: { ...incomingReview, stars },
     });
   } catch (e) {
     console.error(e);
