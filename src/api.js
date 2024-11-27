@@ -30,16 +30,22 @@ api.get("/reviews", async (req, res) => {
 api.post("/review", async (req, res) => {
   // TODO: Add typing with JSDoc
   const createReviewRequestBody = req.body;
-  console.log("Create review", createReviewRequestBody);
+  console.log("Create review request body", createReviewRequestBody);
 
   // Rename `windowHref` to `url` on Review
   const { windowHref, ...reviewWithoutUrl } = createReviewRequestBody;
   const incomingReview = { url: windowHref, ...reviewWithoutUrl };
 
+  // Form data is submitted as string, but number of stars is a number (lol)
+  // Empty string means no stars were set, so use `null` instead of `0` (may support 0 stars in the future?)
+  const stars = incomingReview.stars === "" ? null : Number(incomingReview.stars);
+
   try {
     const review = await prisma.review.create({
-      data: incomingReview,
+      data: { ...incomingReview, stars },
     });
+    console.log("Review created", review);
+
   } catch (e) {
     console.error(e);
   }
