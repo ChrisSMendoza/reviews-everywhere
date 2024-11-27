@@ -101,7 +101,9 @@ export function Review({ review }) {
   const { div, p } = van.tags;
 
   const reviewText = p({ textContent: review.text });
-  const reviewStars = ReviewStars(review);
+  // TODO: Figure out if this is a code smell (could have Message which just knows text)
+  // Stars are optional, so only render if they exist
+  const reviewStars = review.stars ? ReviewStars(review) : null;
 
   return div({ class: "review" }, reviewText, reviewStars);
 }
