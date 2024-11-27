@@ -1,7 +1,7 @@
 import van from "vanjs-core";
 
 import { BASE_URL } from "./api-client";
-import { OverlayReview, SettingsMenu, hideReviews } from "./review";
+import { OverlayReview, ReviewStarButtons, SettingsMenu, hideReviews } from "./review";
 import { onDocumentClick } from "./reviews-everywhere";
 
 // todo; FROM ENV

@@ -140,6 +140,28 @@ export function Overlay({ children, id, position }) {
  * @property {Position} position
  */
 
+export const ReviewStarButtons = ({ setNumStars }) => {
+  const { button } = van.tags;
+
+  const maxNumStars = 5;
+  const starButtons = [];
+
+  for(let i = 0; i < maxNumStars; i++) {
+    const numStars = i + 1;
+
+    starButtons.push(
+      button({
+        onclick: (e) => {
+          e.preventDefault();
+          setNumStars(numStars);
+        }
+      }, StarOutline())
+    );
+  }
+
+  return starButtons;
+}
+
 const { path, svg } = van.tagsNS("http://www.w3.org/2000/svg");
 
 export const StarOutline = () =>
@@ -190,9 +212,10 @@ export function ReviewStars({ stars }) {
 }
 
 export function CreateReviewForm({ action, onclick, onsubmit, position }) {
-  const { form, input } = van.tags;
+  const { button, form, input } = van.tags;
 
   const reviewTextInput = input({ name: "text" });
+  const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5 });
 
   const topInput = input({ name: "top", type: "hidden", value: position.top });
   const leftInput = input({
@@ -200,6 +223,14 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
     type: "hidden",
     value: position.left,
   });
+  // This _did_ enable submit with Enter key after number input was added, but then failed again..
+  // TODO: See if we can remove this (isn't fixed by number input being hidden)
+  const submitButton = button({ type: "submit", textContent: "Submit" });
+
+  function setNumStars(numStars) {
+    numStarsInput.value = numStars;
+  }
+  const reviewStarButtons = ReviewStarButtons({ setNumStars });
 
   return form(
     {
@@ -209,7 +240,10 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
       onclick,
     },
     reviewTextInput,
+    reviewStarButtons,
+    numStarsInput,
     topInput,
     leftInput,
+    submitButton
   );
 }
