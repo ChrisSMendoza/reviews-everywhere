@@ -86,4 +86,4 @@ export function removeReviewMenu() {
   }
 }
 
-const stopPropagationOnClick = (event) => event.stopPropagation();
+export const stopPropagationOnClick = (event) => event.stopPropagation();
