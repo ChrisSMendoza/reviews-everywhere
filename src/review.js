@@ -225,6 +225,9 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
     type: "hidden",
     value: position.left,
   });
+  // TODO: Use hidden input
+  const typeInput = input({ name: "type", type: "text", value: "" });
+
   // This _did_ enable submit with Enter key after number input was added, but then failed again..
   // TODO: See if we can remove this (isn't fixed by number input being hidden)
   const submitButton = button({ type: "submit", textContent: "Submit" });
@@ -246,6 +249,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
     numStarsInput,
     topInput,
     leftInput,
+    typeInput,
     submitButton
   );
 }
