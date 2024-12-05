@@ -212,8 +212,10 @@ export function ReviewStars({ stars }) {
 
   return div({}, starsRendered);
 }
-
-export function CreateReviewForm({ action, onclick, onsubmit, position }) {
+// TODO: Evaluate if this is really easier than plaid ol' HTML
+// TODO: Need to enfore type being set
+// TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
+export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType }) {
   const { button, form, input } = van.tags;
 
   const reviewTextInput = input({ name: "text" });
@@ -226,7 +228,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
     value: position.left,
   });
   // TODO: Use hidden input
-  const typeInput = input({ name: "type", type: "text", value: "" });
+  const typeInput = input({ name: "type", type: "text", value: reviewType });
 
   // This _did_ enable submit with Enter key after number input was added, but then failed again..
   // TODO: See if we can remove this (isn't fixed by number input being hidden)
