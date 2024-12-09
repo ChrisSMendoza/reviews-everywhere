@@ -22,7 +22,6 @@ model Review {
   url String @default("")
 
   // TODO: Use enum? Last job said it was a bad idea..
-  // TODO: Remove default? Doesn't make sense, user will always set it. Kinda did it to migrate the DB..
   // Determines how it's displayed
-  type String @default("overlay")
+  type String
 }
