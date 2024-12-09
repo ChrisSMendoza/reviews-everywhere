@@ -82,6 +82,9 @@ function setSettings({ shouldOpenReviewMenuOnClick, shouldShowReviews }) {
 // Add extension settings menu with previously saved state (or defaults)
 van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, shouldShowReviews, setSettings }));
 
+const timelineReviewsFeed = van.tags.div({ class: "timeline-reviews-feed" }, "Timeline reviews feed");
+
+van.add(document.body, timelineReviewsFeed);
 // TODO: Abstract the parts that are duplicated here and the document onclick handler
 // Timeline review form
 const createReviewUrl = `${BASE_URL}/review`;
@@ -124,7 +127,7 @@ const timelineReviewForm = CreateReviewForm({
       if(review.type === "timeline") {
         console.log("Adding review to timeline");
 
-        van.add(document.body, Review({ review }));
+        timelineReviewsFeed.appendChild(Review({ review }));
       }
       // const overlayReview = OverlayReview({
       //   review,
