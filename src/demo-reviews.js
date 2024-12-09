@@ -1,7 +1,7 @@
 import van from "vanjs-core";
 
 import { BASE_URL } from "./api-client";
-import { CreateReviewForm, OverlayReview, SettingsMenu, hideReviews } from "./review";
+import { CreateReviewForm, OverlayReview, Review, SettingsMenu, hideReviews } from "./review";
 import { onDocumentClick, stopPropagationOnClick } from "./reviews-everywhere";
 
 // todo; FROM ENV
@@ -124,7 +124,7 @@ const timelineReviewForm = CreateReviewForm({
       if(review.type === "timeline") {
         console.log("Adding review to timeline");
 
-        van.add(document.body, van.tags.p(review.message, review.createdAt));
+        van.add(document.body, Review({ review }));
       }
       // const overlayReview = OverlayReview({
       //   review,
