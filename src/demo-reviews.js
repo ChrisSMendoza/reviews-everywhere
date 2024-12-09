@@ -31,8 +31,7 @@ async function loadReviews(baseURL) {
     // Show them to the user. Note, tried to use `.forEach(timelineReviewsFeed.appendChild)`, but it didn't work..
     timelineReviews.forEach((timelineReview) => timelineReviewsFeed.appendChild(timelineReview));
 
-    // TODO: Add `.filter(r => r.type === 'overlay')` to only show overlay reviews?
-    const overlayReviews = reviews.map((review) =>
+    const overlayReviews = reviews.filter(r => r.type === 'overlay').map((review) =>
       // This renders fine, but it's technically not a review.
       // There's no stars. TODO: Generalize to Message? OverlayMessage?
       OverlayReview({
