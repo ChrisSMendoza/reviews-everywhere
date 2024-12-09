@@ -9,6 +9,16 @@ const timelineReviewsFeed = van.tags.div({ class: "timeline-reviews-feed" }, "Ti
 
 van.add(document.body, timelineReviewsFeed);
 
+const toggleTimelineReviewsFeedButton = van.tags.button(
+  {
+    onclick: () => {
+      timelineReviewsFeed.classList.toggle("hidden");
+    },
+  },
+  "Toggle timeline reviews feed",
+);
+van.add(document.body, toggleTimelineReviewsFeedButton);
+
 /**
  * @param {string} baseURL - The base URL of the API
  */
