@@ -23,8 +23,8 @@ export function onDocumentClick(event) {
     // Guess the action would only benefit when JS is disabled? Do extensions run in that case (different runtime?)?
     action: createReviewUrl,
 
-    // Learned that action uses: `Content-Type: application/x-www-form-urlencoded`
-    // While the fetch POST with formData uses `: multipart/form-data`
+    // Document click handler is creating the form, so it's an overlay Review (placed where clicked)
+    reviewType: "overlay",
 
     onsubmit: async (e) => {
       // Stop redirect caused by default submit
@@ -86,4 +86,4 @@ export function removeReviewMenu() {
   }
 }
 
-const stopPropagationOnClick = (event) => event.stopPropagation();
+export const stopPropagationOnClick = (event) => event.stopPropagation();

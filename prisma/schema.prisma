@@ -9,6 +9,7 @@ datasource db {
 
 model Review {
   id Int @id @default(autoincrement())
+  createdAt DateTime @default(now())
 
   text String
   stars Int?
@@ -19,4 +20,8 @@ model Review {
 
   // Source page
   url String @default("")
+
+  // TODO: Use enum? Last job said it was a bad idea..
+  // Determines how it's displayed
+  type String
 }

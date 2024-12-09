@@ -40,6 +40,15 @@ api.post("/review", async (req, res) => {
   // Empty string means no stars were set, so use `null` instead of `0` (may support 0 stars in the future?)
   const stars = incomingReview.stars === "" ? null : Number(incomingReview.stars);
 
+  // Review type validation
+  const reviewTypes = ['overlay', 'timeline'];
+
+  console.assert(reviewTypes.includes(createReviewRequestBody.type), `Invalid review type, must be ${reviewTypes}`);
+
+  if(!reviewTypes.includes(createReviewRequestBody.type)) {
+    throw new Error(`Invalid review type: ${createReviewRequestBody.type}`);
+  }
+
   try {
     const review = await prisma.review.create({
       data: { ...incomingReview, stars },

@@ -105,7 +105,7 @@ export function Review({ review }) {
   // Stars are optional, so only render if they exist
   const reviewStars = review.stars ? ReviewStars(review) : null;
 
-  return div({ class: "review" }, reviewText, reviewStars);
+  return div({ class: "review" }, reviewText, reviewStars, review.createdAt);
 }
 
 export function Overlay({ children, id, position }) {
@@ -128,6 +128,7 @@ export function Overlay({ children, id, position }) {
  * @typedef {Object} Review
  * @property {string} text - What the user had to say
  * @property {number} stars - Number of stars, out of 5
+ * @property {Date} createdAt - When the review was created
  */
 
 /**
@@ -212,8 +213,10 @@ export function ReviewStars({ stars }) {
 
   return div({}, starsRendered);
 }
-
-export function CreateReviewForm({ action, onclick, onsubmit, position }) {
+// TODO: Evaluate if this is really easier than plaid ol' HTML
+// TODO: Need to enfore type being set
+// TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
+export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType }) {
   const { button, form, input } = van.tags;
 
   const reviewTextInput = input({ name: "text" });
@@ -225,6 +228,9 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
     type: "hidden",
     value: position.left,
   });
+  // TODO: Use hidden input
+  const typeInput = input({ name: "type", type: "text", value: reviewType });
+
   // This _did_ enable submit with Enter key after number input was added, but then failed again..
   // TODO: See if we can remove this (isn't fixed by number input being hidden)
   const submitButton = button({ type: "submit", textContent: "Submit" });
@@ -246,6 +252,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position }) {
     numStarsInput,
     topInput,
     leftInput,
+    typeInput,
     submitButton
   );
 }
