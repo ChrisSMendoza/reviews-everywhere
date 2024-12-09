@@ -116,11 +116,16 @@ const timelineReviewForm = CreateReviewForm({
     const createReviewResponse = await fetch(createReviewRequest);
 
     if (createReviewResponse.ok) {
-      // Hide the Review Menu to show the new review
-      // removeReviewMenu();
+      // TODO: Type using what Prisma provides
+      const review = await createReviewResponse.json();
+      console.log("Create review success", review);
 
-      // TODO: Add to sidebar when timeline review is created
-      // const review = await createReviewResponse.json();
+      // TODO: Somewhat unnecessary we _could_ know this from the beginning (API for just timeline reviews?)
+      if(review.type === "timeline") {
+        console.log("Adding review to timeline");
+
+        van.add(document.body, van.tags.p(review.message, review.createdAt));
+      }
       // const overlayReview = OverlayReview({
       //   review,
       //   position: { left: review.left, top: review.top },
