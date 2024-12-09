@@ -105,7 +105,7 @@ export function Review({ review }) {
   // Stars are optional, so only render if they exist
   const reviewStars = review.stars ? ReviewStars(review) : null;
 
-  return div({ class: "review" }, reviewText, reviewStars);
+  return div({ class: "review" }, reviewText, reviewStars, review.createdAt);
 }
 
 export function Overlay({ children, id, position }) {
@@ -128,6 +128,7 @@ export function Overlay({ children, id, position }) {
  * @typedef {Object} Review
  * @property {string} text - What the user had to say
  * @property {number} stars - Number of stars, out of 5
+ * @property {Date} createdAt - When the review was created
  */
 
 /**
