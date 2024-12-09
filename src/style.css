@@ -16,3 +16,9 @@
 .hide-reviews-everywhere .overlay .review {
   visibility: hidden;
 }
+
+.timeline-reviews-feed {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
