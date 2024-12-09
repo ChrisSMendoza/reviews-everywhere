@@ -4,11 +4,10 @@ import { BASE_URL } from "./api-client";
 import { CreateReviewForm, OverlayReview, Review, SettingsMenu, hideReviews } from "./review";
 import { onDocumentClick, stopPropagationOnClick } from "./reviews-everywhere";
 
-// todo; FROM ENV
-// if dev, then use localhost, like in local page
-// const BASE_URL = "http://localhost:3000";
-// if extension, then use hosted version
-// should be set by env / build process
+// Timeline Reviews feed, reviews are populated on fetch and post
+const timelineReviewsFeed = van.tags.div({ class: "timeline-reviews-feed" }, "Timeline reviews feed");
+
+van.add(document.body, timelineReviewsFeed);
 
 /**
  * @param {string} baseURL - The base URL of the API
@@ -24,7 +23,14 @@ async function loadReviews(baseURL) {
   const reviewsResponse = await fetch(getReviewsRequest);
 
   if (reviewsResponse.ok) {
+    // TODO: Type using what Prisma provides
     const reviews = await reviewsResponse.json();
+
+    const timelineReviews = reviews.filter((review) => review.type === "timeline").map((review) => Review({ review }));
+    console.log("Timeline reviews", timelineReviews);
+    // Show them to the user. Note, tried to use `.forEach(timelineReviewsFeed.appendChild)`, but it didn't work..
+    timelineReviews.forEach((timelineReview) => timelineReviewsFeed.appendChild(timelineReview));
+
     // TODO: Add `.filter(r => r.type === 'overlay')` to only show overlay reviews?
     const overlayReviews = reviews.map((review) =>
       // This renders fine, but it's technically not a review.
@@ -82,9 +88,6 @@ function setSettings({ shouldOpenReviewMenuOnClick, shouldShowReviews }) {
 // Add extension settings menu with previously saved state (or defaults)
 van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, shouldShowReviews, setSettings }));
 
-const timelineReviewsFeed = van.tags.div({ class: "timeline-reviews-feed" }, "Timeline reviews feed");
-
-van.add(document.body, timelineReviewsFeed);
 // TODO: Abstract the parts that are duplicated here and the document onclick handler
 // Timeline review form
 const createReviewUrl = `${BASE_URL}/review`;
