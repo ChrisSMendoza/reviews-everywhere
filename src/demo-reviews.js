@@ -131,12 +131,6 @@ const timelineReviewForm = CreateReviewForm({
 
         timelineReviewsFeed.appendChild(Review({ review }));
       }
-      // const overlayReview = OverlayReview({
-      //   review,
-      //   position: { left: review.left, top: review.top },
-      // });
-
-      // van.add(document.body, overlayReview);
 
     } else {
       console.error("Failed to create review", createReviewResponse);
