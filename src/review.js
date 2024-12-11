@@ -105,7 +105,15 @@ export function Review({ review }) {
   // Stars are optional, so only render if they exist
   const reviewStars = review.stars ? ReviewStars(review) : null;
 
-  return div({ class: "review" }, reviewText, reviewStars, review.createdAt);
+  // TODO: When it's time to change any of these, abstract as a whole
+  const createdAtDate = new Date(review.createdAt);
+  const createdAt = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: 'America/Los_Angeles',
+  }).format(createdAtDate);
+
+  return div({ class: "review" }, reviewText, reviewStars, createdAt);
 }
 
 export function Overlay({ children, id, position }) {
