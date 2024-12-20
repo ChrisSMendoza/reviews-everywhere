@@ -10,7 +10,7 @@
 
 /* Attach to `<html>` to hide all reviews */
 .hide-reviews-everywhere .overlay .review {
-  visibility: hidden;
+  display: none;
 }
 
 .timeline-reviews-feed {
