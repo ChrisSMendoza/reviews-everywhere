@@ -123,7 +123,7 @@ export function Review({ review }) {
 export function Overlay(props) {
   const { div } = van.tags;
 
-  const overlay = div({ class: `overlay ${props.class}` }, props.children);
+  const overlay = div({ class: `overlay ${props.class ?? ''}` }, props.children);
 
   // TODO: When is it missing? Get rid of this..
   if (props.id) {
