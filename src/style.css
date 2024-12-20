@@ -1,3 +1,7 @@
+.review p {
+  margin: 0;
+}
+
 .overlay {
   position: absolute;
   z-index: 99;
