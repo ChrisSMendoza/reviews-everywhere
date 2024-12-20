@@ -113,7 +113,7 @@ export function Review({ review }) {
     timeZone: 'America/Los_Angeles',
   }).format(createdAtDate);
 
-  return div({ class: "review" }, reviewText, reviewStars, createdAt);
+  return div(reviewText, reviewStars, createdAt);
 }
 
 export function Overlay({ children, id, position }) {
