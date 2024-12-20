@@ -26,3 +26,29 @@
 .hidden {
   visibility: hidden;
 }
+
+
+/* Generated from ChatGPT */
+.chat-bubble {
+  position: relative;
+  display: inline-block;
+  padding: 15px 20px;
+  background-color: #f1f0f0; /* light gray background */
+  border-radius: 20px; /* rounded corners */
+  max-width: 300px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+.chat-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -10px; /* Position the tail below the bubble */
+  left: 20px; /* Adjust depending on where you want the tail to point */
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #f1f0f0; /* Match the background color */
+}
