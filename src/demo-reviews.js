@@ -47,6 +47,7 @@ async function loadReviews(baseURL) {
       OverlayReview({
         review,
         position: { left: review.left, top: review.top },
+        class: "chat-bubble",
       }),
     );
     // Show them to the user

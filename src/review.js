@@ -85,10 +85,14 @@ export function hideReviews() {
  * @param {OverlayReviewProps} props
  * @returns
  */
-export function OverlayReview({ review, position }) {
+export function OverlayReview(props) {
+
+  const { review, position } = props;
+
   return Overlay({
     children: Review({ review }),
     position,
+    class: props.class,
   });
 }
 
@@ -113,22 +117,21 @@ export function Review({ review }) {
     timeZone: 'America/Los_Angeles',
   }).format(createdAtDate);
 
-  // TODO: Stop this from happening for timeline reviews
-  return div({ class: 'chat-bubble' }, reviewText, reviewStars, createdAt);
+  return div(reviewText, reviewStars, createdAt);
 }
 
-export function Overlay({ children, id, position }) {
+export function Overlay(props) {
   const { div } = van.tags;
 
-  const overlay = div({ class: "overlay" }, children);
+  const overlay = div({ class: `overlay ${props.class}` }, props.children);
 
   // TODO: When is it missing? Get rid of this..
-  if (id) {
-    overlay.id = id;
+  if (props.id) {
+    overlay.id = props.id;
   }
 
-  overlay.style.top = position.top;
-  overlay.style.left = position.left;
+  overlay.style.top = props.position.top;
+  overlay.style.left = props.position.left;
 
   return overlay;
 }
