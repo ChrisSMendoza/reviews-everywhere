@@ -89,8 +89,10 @@ export function OverlayReview(props) {
 
   const { review, position } = props;
 
+  const chatBubbleReview = van.tags.div({ class: "chat-bubble" }, Review({ review }));
+
   return Overlay({
-    children: Review({ review }),
+    children: chatBubbleReview,
     position,
     class: props.class,
   });

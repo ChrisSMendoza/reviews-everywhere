@@ -46,8 +46,7 @@ async function loadReviews(baseURL) {
       // There's no stars. TODO: Generalize to Message? OverlayMessage?
       OverlayReview({
         review,
-        position: { left: review.left, top: review.top },
-        class: "chat-bubble",
+        position: { left: review.left, top: review.top }
       }),
     );
     // Show them to the user
