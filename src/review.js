@@ -113,7 +113,8 @@ export function Review({ review }) {
     timeZone: 'America/Los_Angeles',
   }).format(createdAtDate);
 
-  return div(reviewText, reviewStars, createdAt);
+  // TODO: Stop this from happening for timeline reviews
+  return div({ class: 'chat-bubble' }, reviewText, reviewStars, createdAt);
 }
 
 export function Overlay({ children, id, position }) {
