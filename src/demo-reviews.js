@@ -41,19 +41,13 @@ async function loadReviews(baseURL) {
     // Show them to the user. Note, tried to use `.forEach(timelineReviewsFeed.appendChild)`, but it didn't work..
     timelineReviews.forEach((timelineReview) => timelineReviewsFeed.appendChild(timelineReview));
 
-    const overlayReviews = reviews.filter(r => r.type === 'overlay').map((review) =>{
+    const overlayReviews = reviews.filter(r => r.type === 'overlay').map((review) =>
       // This renders fine, but it's technically not a review.
       // There's no stars. TODO: Generalize to Message? OverlayMessage?
-      const overlayReview = OverlayReview({
+      OverlayReview({
         review,
         position: { left: review.left, top: review.top },
-      })
-
-      // TODO: Crude way of doing this, but better than prop drilling `class`?
-      overlayReview.classList.add("chat-bubble");
-
-      return overlayReview;
-    }
+      }),
     );
     // Show them to the user
     overlayReviews.forEach((overlayReview) =>
