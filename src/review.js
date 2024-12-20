@@ -94,7 +94,6 @@ export function OverlayReview(props) {
   return Overlay({
     children: chatBubbleReview,
     position,
-    class: props.class,
   });
 }
 
@@ -123,9 +122,7 @@ export function Review({ review }) {
 }
 
 export function Overlay(props) {
-  const { div } = van.tags;
-
-  const overlay = div({ class: `overlay ${props.class ?? ''}` }, props.children);
+  const overlay = van.tags.div({ class: 'overlay' }, props.children);
 
   // TODO: When is it missing? Get rid of this..
   if (props.id) {
