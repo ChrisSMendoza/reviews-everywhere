@@ -89,7 +89,8 @@ export function OverlayReview(props) {
 
   const { review, position } = props;
 
-  const chatBubbleReview = van.tags.div({ class: "chat-bubble" }, Review({ review }));
+  // Use `review` to hide chat bubble when "Show reviews" is unchecked, no styling changes
+  const chatBubbleReview = van.tags.div({ class: "chat-bubble review" }, Review({ review }));
 
   return Overlay({
     children: chatBubbleReview,
