@@ -13,7 +13,7 @@ export function onDocumentClick(event) {
   removeReviewMenu();
 
   // TODO: Add units prop so there's no string concatenation needed?
-  const position = { top: `${event.clientY}px`, left: `${event.clientX}px` };
+  const position = { top: `${event.pageY}px`, left: `${event.pageX}px` };
 
   const createReviewUrl = `${BASE_URL}/review`;
 
