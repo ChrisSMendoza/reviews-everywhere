@@ -234,8 +234,8 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   const { button, form, input } = van.tags;
 
   const reviewTextInput = input({ name: "text" });
-  const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5 });
 
+  // Position (where clicked)
   const topInput = input({ name: "top", type: "hidden", value: position.top });
   const leftInput = input({
     name: "left",
@@ -248,6 +248,8 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   // This _did_ enable submit with Enter key after number input was added, but then failed again..
   // TODO: See if we can remove this (isn't fixed by number input being hidden)
   const submitButton = button({ type: "submit", textContent: "Submit" });
+
+  const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5, step: "0.01" });
 
   function setNumStars(numStars) {
     numStarsInput.value = numStars;

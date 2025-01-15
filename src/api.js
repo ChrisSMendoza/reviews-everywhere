@@ -32,6 +32,7 @@ api.post("/review", async (req, res) => {
   const createReviewRequestBody = req.body;
   console.log("Create review request body", createReviewRequestBody);
 
+  // TODO: Make these match
   // Rename `windowHref` to `url` on Review
   const { windowHref, ...reviewWithoutUrl } = createReviewRequestBody;
   const incomingReview = { url: windowHref, ...reviewWithoutUrl };
