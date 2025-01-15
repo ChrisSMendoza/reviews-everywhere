@@ -85,9 +85,17 @@ export function hideReviews() {
  * @param {OverlayReviewProps} props
  * @returns
  */
-export function OverlayReview({ review, position }) {
+export function OverlayReview(props) {
+
+  const { review, position } = props;
+
+  // TODO: Move `class: "review"` into `Review` component? Not possible now since hiding styles
+  // that target 'review' don't hide the "chat-bubble" container.
+  // Use `review` to hide chat bubble when "Show reviews" is unchecked, no styling changes
+  const chatBubbleReview = van.tags.div({ class: "chat-bubble review" }, Review({ review }));
+
   return Overlay({
-    children: Review({ review }),
+    children: chatBubbleReview,
     position,
   });
 }
@@ -113,21 +121,19 @@ export function Review({ review }) {
     timeZone: 'America/Los_Angeles',
   }).format(createdAtDate);
 
-  return div({ class: "review" }, reviewText, reviewStars, createdAt);
+  return div(reviewText, reviewStars, createdAt);
 }
 
-export function Overlay({ children, id, position }) {
-  const { div } = van.tags;
-
-  const overlay = div({ class: "overlay" }, children);
+export function Overlay(props) {
+  const overlay = van.tags.div({ class: 'overlay' }, props.children);
 
   // TODO: When is it missing? Get rid of this..
-  if (id) {
-    overlay.id = id;
+  if (props.id) {
+    overlay.id = props.id;
   }
 
-  overlay.style.top = position.top;
-  overlay.style.left = position.left;
+  overlay.style.top = props.position.top;
+  overlay.style.left = props.position.left;
 
   return overlay;
 }
