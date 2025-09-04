@@ -33,6 +33,27 @@ export function Review({ review }) {
 
   return div(reviewText, reviewStars, createdAt);
 }
+// TODO: Use numStars
+/**
+ * @param {{ stars: number }} props
+ */
+export function ReviewStars({ stars }) {
+  const MAX_NUM_STARS = 5;
+  const starsRendered = [];
+
+  for (let i = 0; i < stars; i++) {
+    starsRendered.push(StarSolid());
+  }
+
+  for (let i = 0; i < MAX_NUM_STARS - stars; i++) {
+    starsRendered.push(StarOutline());
+  }
+
+  const { div } = van.tags;
+
+  return div({}, starsRendered);
+}
+
 
 /**
  * @typedef {Object} Position
@@ -208,26 +229,6 @@ export const StarSolid = () =>
     }),
   );
 
-/**
- *
- * @param {{ stars: number }} props
- */
-export function ReviewStars({ stars }) {
-  const MAX_NUM_STARS = 5;
-  const starsRendered = [];
-
-  for (let i = 0; i < stars; i++) {
-    starsRendered.push(StarSolid());
-  }
-
-  for (let i = 0; i < MAX_NUM_STARS - stars; i++) {
-    starsRendered.push(StarOutline());
-  }
-
-  const { div } = van.tags;
-
-  return div({}, starsRendered);
-}
 // TODO: Evaluate if this is really easier than plain ol' HTML
 // TODO: Need to enfore type being set
 // TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
