@@ -229,7 +229,7 @@ export function ReviewStars({ stars }) {
 
   return div({}, starsRendered);
 }
-// TODO: Evaluate if this is really easier than plaid ol' HTML
+// TODO: Evaluate if this is really easier than plain ol' HTML
 // TODO: Need to enfore type being set
 // TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
 export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType }) {
