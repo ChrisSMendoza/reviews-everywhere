@@ -112,7 +112,7 @@ export function Overlay(props) {
  * @param {{
  *  shouldOpenReviewMenuOnClick: boolean,
  *  shouldShowReviews: boolean
- *  setSettings(settings) => void
+ *  setSettings(settings: object) => void
  * }} props
  */
 export function SettingsMenu(props) {
