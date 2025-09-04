@@ -101,6 +101,13 @@ export function OverlayReview(props) {
 }
 
 /**
+ * @typedef {Object} Review
+ * @property {string} text - What the user had to say
+ * @property {number} stars - Number of stars, out of 5
+ * @property {Date} createdAt - When the review was created
+ */
+
+/**
  *
  * @param {{ review: Review }} props
  * @returns
@@ -137,13 +144,6 @@ export function Overlay(props) {
 
   return overlay;
 }
-
-/**
- * @typedef {Object} Review
- * @property {string} text - What the user had to say
- * @property {number} stars - Number of stars, out of 5
- * @property {Date} createdAt - When the review was created
- */
 
 /**
  * @typedef {Object} Position
