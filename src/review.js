@@ -2,6 +2,39 @@ import van from "vanjs-core";
 
 import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 
+
+/**
+ * @typedef {Object} Review
+ * @property {string} text - What the user had to say
+ * @property {number} stars - Number of stars, out of 5
+ * @property {Date} createdAt - When the review was created
+ */
+
+/**
+ *
+ * @param {{ review: Review }} props
+ * @returns
+ */
+export function Review({ review }) {
+  const { div, p } = van.tags;
+
+  const reviewText = p({ textContent: review.text });
+  // TODO: Figure out if this is a code smell (could have Message which just knows text)
+  // Stars are optional, so only render if they exist
+  const reviewStars = review.stars ? ReviewStars(review) : null;
+
+  // TODO: When it's time to change any of these, abstract as a whole
+  const createdAtDate = new Date(review.createdAt);
+  const createdAt = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: 'America/Los_Angeles',
+  }).format(createdAtDate);
+
+  return div(reviewText, reviewStars, createdAt);
+}
+
+
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 //  Could export from reviews-everywhere since uses both imports?
 // TODO: Define `settings` param type as object, or specific keys
@@ -110,37 +143,6 @@ export function OverlayReview(props) {
     children: chatBubbleReview,
     position,
   });
-}
-
-/**
- * @typedef {Object} Review
- * @property {string} text - What the user had to say
- * @property {number} stars - Number of stars, out of 5
- * @property {Date} createdAt - When the review was created
- */
-
-/**
- *
- * @param {{ review: Review }} props
- * @returns
- */
-export function Review({ review }) {
-  const { div, p } = van.tags;
-
-  const reviewText = p({ textContent: review.text });
-  // TODO: Figure out if this is a code smell (could have Message which just knows text)
-  // Stars are optional, so only render if they exist
-  const reviewStars = review.stars ? ReviewStars(review) : null;
-
-  // TODO: When it's time to change any of these, abstract as a whole
-  const createdAtDate = new Date(review.createdAt);
-  const createdAt = new Intl.DateTimeFormat('en-US', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-    timeZone: 'America/Los_Angeles',
-  }).format(createdAtDate);
-
-  return div(reviewText, reviewStars, createdAt);
 }
 
 export function Overlay(props) {
