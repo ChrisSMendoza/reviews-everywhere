@@ -33,9 +33,9 @@ export function Review({ review }) {
 
   return div(reviewText, reviewStars, createdAt);
 }
-// TODO: Have this type be based on the Review type
+
 /**
- * @param {{ stars: number }} props
+ * @param {{ stars: Review['stars'] }} props
  * @note `numStars` would be more clear, but `stars` is how it's on the model
  */
 export function ReviewStars({ stars }) {
