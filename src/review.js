@@ -81,6 +81,18 @@ export function hideReviews() {
 }
 
 /**
+ * @typedef {Object} OverlayReviewProps
+ * @property {Review} review
+ * @property {Position} position
+ */
+
+/**
+ * @typedef {Object} Position
+ * @property {CSSStyleDeclaration.top} top - Offset from top of the screen
+ * @property {CSSStyleDeclaration.left} left - Offset from left side of screen
+ */
+
+/**
  *
  * @param {OverlayReviewProps} props
  * @returns
@@ -144,18 +156,6 @@ export function Overlay(props) {
 
   return overlay;
 }
-
-/**
- * @typedef {Object} Position
- * @property {CSSStyleDeclaration.top} top - Offset from top of the screen
- * @property {CSSStyleDeclaration.left} left - Offset from left side of screen
- */
-
-/**
- * @typedef {Object} OverlayReviewProps
- * @property {Review} review
- * @property {Position} position
- */
 
 export const ReviewStarButtons = ({ setNumStars }) => {
   const { button } = van.tags;
