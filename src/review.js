@@ -103,6 +103,11 @@ export function Overlay(props) {
 }
 
 
+/**
+ * @typedef {Object} ReviewsUISettings
+ * @property {boolean} shouldOpenReviewMenuOnClick - TODO
+ * @property {boolean} shouldShowReviews - TODO
+ */
 
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 //  Could export from reviews-everywhere since uses both imports?
@@ -112,7 +117,7 @@ export function Overlay(props) {
  * @param {{
  *  shouldOpenReviewMenuOnClick: boolean,
  *  shouldShowReviews: boolean
- *  setSettings(settings: object) => void
+ *  setSettings(settings: ReviewsUISettings) => void
  * }} props
  */
 export function SettingsMenu(props) {
