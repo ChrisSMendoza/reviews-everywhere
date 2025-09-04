@@ -164,7 +164,7 @@ export const ReviewStarButtons = ({ setNumStars }) => {
 
   const maxNumStars = 5;
   const starButtons = [];
-
+  // TODO: Something's off here... Do we really need i + 1?
   for(let i = 0; i < maxNumStars; i++) {
     const numStars = i + 1;
 
