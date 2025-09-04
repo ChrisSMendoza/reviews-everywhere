@@ -33,9 +33,10 @@ export function Review({ review }) {
 
   return div(reviewText, reviewStars, createdAt);
 }
-// TODO: Use numStars
+// TODO: Have this type be based on the Review type
 /**
  * @param {{ stars: number }} props
+ * @note `numStars` would be more clear, but `stars` is how it's on the model
  */
 export function ReviewStars({ stars }) {
   const MAX_NUM_STARS = 5;
