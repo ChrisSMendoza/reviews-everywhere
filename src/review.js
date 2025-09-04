@@ -77,7 +77,10 @@ export function OverlayReview(props) {
   // TODO: Move `class: "review"` into `Review` component? Not possible now since hiding styles
   // that target 'review' don't hide the "chat-bubble" container.
   // Use `review` to hide chat bubble when "Show reviews" is unchecked, no styling changes
-  const chatBubbleReview = van.tags.div({ class: "chat-bubble review" }, Review({ review }));
+  const chatBubbleReview = van.tags.div(
+    { class: "chat-bubble review" },
+    Review({ review })
+  );
 
   return Overlay({
     children: chatBubbleReview,
