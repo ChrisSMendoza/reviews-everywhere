@@ -34,6 +34,50 @@ export function Review({ review }) {
   return div(reviewText, reviewStars, createdAt);
 }
 
+/**
+ * @typedef {Object} Position
+ * @property {CSSStyleDeclaration.top} top - Offset from top of the screen
+ * @property {CSSStyleDeclaration.left} left - Offset from left side of screen
+ */
+
+/**
+ * @name OverlayReview
+ *
+ * @param {{
+ *  review: Review
+ *  position: Position
+ * }} props
+ */
+export function OverlayReview(props) {
+
+  const { review, position } = props;
+
+  // TODO: Move `class: "review"` into `Review` component? Not possible now since hiding styles
+  // that target 'review' don't hide the "chat-bubble" container.
+  // Use `review` to hide chat bubble when "Show reviews" is unchecked, no styling changes
+  const chatBubbleReview = van.tags.div({ class: "chat-bubble review" }, Review({ review }));
+
+  return Overlay({
+    children: chatBubbleReview,
+    position,
+  });
+}
+
+export function Overlay(props) {
+  const overlay = van.tags.div({ class: 'overlay' }, props.children);
+
+  // TODO: When is it missing? Get rid of this..
+  if (props.id) {
+    overlay.id = props.id;
+  }
+
+  overlay.style.top = props.position.top;
+  overlay.style.left = props.position.left;
+
+  return overlay;
+}
+
+
 
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 //  Could export from reviews-everywhere since uses both imports?
@@ -113,51 +157,6 @@ export function hideReviews() {
   document.querySelector("html").classList.add("hide-reviews-everywhere");
 }
 
-/**
- * @typedef {Object} OverlayReviewProps
- * @property {Review} review
- * @property {Position} position
- */
-
-/**
- * @typedef {Object} Position
- * @property {CSSStyleDeclaration.top} top - Offset from top of the screen
- * @property {CSSStyleDeclaration.left} left - Offset from left side of screen
- */
-
-/**
- *
- * @param {OverlayReviewProps} props
- * @returns
- */
-export function OverlayReview(props) {
-
-  const { review, position } = props;
-
-  // TODO: Move `class: "review"` into `Review` component? Not possible now since hiding styles
-  // that target 'review' don't hide the "chat-bubble" container.
-  // Use `review` to hide chat bubble when "Show reviews" is unchecked, no styling changes
-  const chatBubbleReview = van.tags.div({ class: "chat-bubble review" }, Review({ review }));
-
-  return Overlay({
-    children: chatBubbleReview,
-    position,
-  });
-}
-
-export function Overlay(props) {
-  const overlay = van.tags.div({ class: 'overlay' }, props.children);
-
-  // TODO: When is it missing? Get rid of this..
-  if (props.id) {
-    overlay.id = props.id;
-  }
-
-  overlay.style.top = props.position.top;
-  overlay.style.left = props.position.left;
-
-  return overlay;
-}
 
 export const ReviewStarButtons = ({ setNumStars }) => {
   const { button } = van.tags;
