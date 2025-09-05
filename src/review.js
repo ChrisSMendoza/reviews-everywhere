@@ -247,7 +247,12 @@ const previewReviewText = van.state("");
 export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType }) {
   const { button, div, form, input } = van.tags;
 
-  const reviewTextInput = input({ name: "text" });
+  const reviewTextInput = input({
+    name: "text",
+    oninput: (onReviewTextInput) => {
+      previewReviewText.val = onReviewTextInput.target.value;
+    }
+  });
   const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5 });
 
   const topInput = input({ name: "top", type: "hidden", value: position.top });
@@ -273,7 +278,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
   const reviewPreview = div(
     { class: "chat-bubble review" },
-    Review({ review: tempReviewToPreview })
+    div(previewReviewText)
   );
 
   const createReviewForm = form(
