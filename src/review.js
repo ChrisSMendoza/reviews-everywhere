@@ -254,13 +254,22 @@ function getReviewDefault() {
 export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType }) {
   const { button, div, form, input } = van.tags;
 
+  // Use preview review state as `value` so `text` and `stars` are persisted
+  // when form and preview are moved
   const reviewTextInput = input({
     name: "text",
+    value: previewReview.val.text,
     oninput: (onReviewTextInput) => {
       previewReview.val = { ...previewReview.val, text: onReviewTextInput.target.value }
     }
   });
-  const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5 });
+  const numStarsInput = input({
+    name: "stars",
+    type: "number",
+    value: previewReview.val.stars,
+    min: 1,
+    max: 5
+  });
 
   const topInput = input({ name: "top", type: "hidden", value: position.top });
   const leftInput = input({
@@ -297,10 +306,10 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
     submitButton
   );
   // TODO: Fix preview being hidden when "Hide reviews" is selected
-  return div(Preview(), createReviewForm);
+  return div(ReviewPreview(), createReviewForm);
 }
 
-function Preview() {
+function ReviewPreview() {
   // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
   return van.tags.div(
     { class: "chat-bubble review" },
