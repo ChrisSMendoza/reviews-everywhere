@@ -54,6 +54,7 @@ export function onDocumentClick(event) {
         removeReviewMenu();
 
         const review = await createReviewResponse.json();
+
         const overlayReview = OverlayReview({
           review,
           position: { left: review.left, top: review.top },
@@ -68,7 +69,7 @@ export function onDocumentClick(event) {
     onclick: stopPropagationOnClick,
     position,
   });
-
+  // TODO: Share static `id` with `removeReviewMenu`? Only place it's used, maybe if used again...
   const overlayReviewMenu = Overlay({
     children: createReviewForm,
     id: "add-review-overlay",

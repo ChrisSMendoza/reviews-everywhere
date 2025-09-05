@@ -2,6 +2,113 @@ import van from "vanjs-core";
 
 import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
 
+
+/**
+ * @typedef {Object} Review
+ * @property {string} text - What the user had to say
+ * @property {number} stars - Number of stars, out of 5
+ * @property {Date} createdAt - When the review was created
+ */
+
+/**
+ *
+ * @param {{ review: Review }} props
+ * @returns
+ */
+export function Review({ review }) {
+  const { div, p } = van.tags;
+
+  const reviewText = p({ textContent: review.text });
+  // TODO: Figure out if this is a code smell (could have Message which just knows text)
+  // Stars are optional, so only render if they exist
+  const reviewStars = review.stars ? ReviewStars(review) : null;
+
+  // TODO: When it's time to change any of these, abstract as a whole
+  const createdAtDate = new Date(review.createdAt);
+  const createdAt = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: 'America/Los_Angeles',
+  }).format(createdAtDate);
+
+  return div(reviewText, reviewStars, createdAt);
+}
+
+/**
+ * @param {{ stars: Review['stars'] }} props
+ * @note `numStars` would be more clear, but `stars` is how it's on the model
+ */
+export function ReviewStars({ stars }) {
+  const MAX_NUM_STARS = 5;
+  const starsRendered = [];
+
+  for (let i = 0; i < stars; i++) {
+    starsRendered.push(StarSolid());
+  }
+
+  for (let i = 0; i < MAX_NUM_STARS - stars; i++) {
+    starsRendered.push(StarOutline());
+  }
+
+  const { div } = van.tags;
+
+  return div({}, starsRendered);
+}
+
+
+/**
+ * @typedef {Object} Position
+ * @property {CSSStyleDeclaration.top} top - Offset from top of the screen
+ * @property {CSSStyleDeclaration.left} left - Offset from left side of screen
+ */
+
+/**
+ * @name OverlayReview
+ *
+ * @param {{
+ *  review: Review
+ *  position: Position
+ * }} props
+ */
+export function OverlayReview(props) {
+
+  const { review, position } = props;
+
+  // TODO: Move `class: "review"` into `Review` component? Not possible now since hiding styles
+  // that target 'review' don't hide the "chat-bubble" container.
+  // Use `review` to hide chat bubble when "Show reviews" is unchecked, no styling changes
+  const chatBubbleReview = van.tags.div(
+    { class: "chat-bubble review" },
+    Review({ review })
+  );
+
+  return Overlay({
+    children: chatBubbleReview,
+    position,
+  });
+}
+
+export function Overlay(props) {
+  const overlay = van.tags.div({ class: 'overlay' }, props.children);
+
+  // TODO: When is it missing? Get rid of this..
+  if (props.id) {
+    overlay.id = props.id;
+  }
+
+  overlay.style.top = props.position.top;
+  overlay.style.left = props.position.left;
+
+  return overlay;
+}
+
+
+/**
+ * @typedef {Object} ReviewsUISettings
+ * @property {boolean} shouldOpenReviewMenuOnClick - TODO
+ * @property {boolean} shouldShowReviews - TODO
+ */
+
 // TODO: Move this to another module? Eh.. maybe when this file gets to like 300+ lines?
 //  Could export from reviews-everywhere since uses both imports?
 // TODO: Define `settings` param type as object, or specific keys
@@ -10,7 +117,7 @@ import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
  * @param {{
  *  shouldOpenReviewMenuOnClick: boolean,
  *  shouldShowReviews: boolean
- *  setSettings(settings) => void
+ *  setSettings(settings: ReviewsUISettings) => void
  * }} props
  */
 export function SettingsMenu(props) {
@@ -80,89 +187,13 @@ export function hideReviews() {
   document.querySelector("html").classList.add("hide-reviews-everywhere");
 }
 
-/**
- *
- * @param {OverlayReviewProps} props
- * @returns
- */
-export function OverlayReview(props) {
-
-  const { review, position } = props;
-
-  // TODO: Move `class: "review"` into `Review` component? Not possible now since hiding styles
-  // that target 'review' don't hide the "chat-bubble" container.
-  // Use `review` to hide chat bubble when "Show reviews" is unchecked, no styling changes
-  const chatBubbleReview = van.tags.div({ class: "chat-bubble review" }, Review({ review }));
-
-  return Overlay({
-    children: chatBubbleReview,
-    position,
-  });
-}
-
-/**
- *
- * @param {{ review: Review }} props
- * @returns
- */
-export function Review({ review }) {
-  const { div, p } = van.tags;
-
-  const reviewText = p({ textContent: review.text });
-  // TODO: Figure out if this is a code smell (could have Message which just knows text)
-  // Stars are optional, so only render if they exist
-  const reviewStars = review.stars ? ReviewStars(review) : null;
-
-  // TODO: When it's time to change any of these, abstract as a whole
-  const createdAtDate = new Date(review.createdAt);
-  const createdAt = new Intl.DateTimeFormat('en-US', {
-    dateStyle: 'medium',
-    timeStyle: 'short',
-    timeZone: 'America/Los_Angeles',
-  }).format(createdAtDate);
-
-  return div(reviewText, reviewStars, createdAt);
-}
-
-export function Overlay(props) {
-  const overlay = van.tags.div({ class: 'overlay' }, props.children);
-
-  // TODO: When is it missing? Get rid of this..
-  if (props.id) {
-    overlay.id = props.id;
-  }
-
-  overlay.style.top = props.position.top;
-  overlay.style.left = props.position.left;
-
-  return overlay;
-}
-
-/**
- * @typedef {Object} Review
- * @property {string} text - What the user had to say
- * @property {number} stars - Number of stars, out of 5
- * @property {Date} createdAt - When the review was created
- */
-
-/**
- * @typedef {Object} Position
- * @property {CSSStyleDeclaration.top} top - Offset from top of the screen
- * @property {CSSStyleDeclaration.left} left - Offset from left side of screen
- */
-
-/**
- * @typedef {Object} OverlayReviewProps
- * @property {Review} review
- * @property {Position} position
- */
 
 export const ReviewStarButtons = ({ setNumStars }) => {
   const { button } = van.tags;
 
   const maxNumStars = 5;
   const starButtons = [];
-
+  // TODO: Something's off here... Do we really need i + 1?
   for(let i = 0; i < maxNumStars; i++) {
     const numStars = i + 1;
 
@@ -207,27 +238,7 @@ export const StarSolid = () =>
     }),
   );
 
-/**
- *
- * @param {{ stars: number }} props
- */
-export function ReviewStars({ stars }) {
-  const MAX_NUM_STARS = 5;
-  const starsRendered = [];
-
-  for (let i = 0; i < stars; i++) {
-    starsRendered.push(StarSolid());
-  }
-
-  for (let i = 0; i < MAX_NUM_STARS - stars; i++) {
-    starsRendered.push(StarOutline());
-  }
-
-  const { div } = van.tags;
-
-  return div({}, starsRendered);
-}
-// TODO: Evaluate if this is really easier than plaid ol' HTML
+// TODO: Evaluate if this is really easier than plain ol' HTML
 // TODO: Need to enfore type being set
 // TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
 export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType }) {
