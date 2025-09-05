@@ -305,8 +305,6 @@ function Preview() {
   // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
   return van.tags.div(
     { class: "chat-bubble review" },
-    Review({ review }),
-
-    () => ReviewStars({ stars: stars.val })
+    () => Review({ review: previewReview.val }),
   );
 }
