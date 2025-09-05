@@ -238,8 +238,7 @@ export const StarSolid = () =>
     }),
   );
 
-
-const previewReviewText = van.state("");
+const previewReview = van.state({ stars: 0, text: "", createdAt: Date.now() });
 
 // TODO: Evaluate if this is really easier than plain ol' HTML
 // TODO: Need to enfore type being set
@@ -250,7 +249,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   const reviewTextInput = input({
     name: "text",
     oninput: (onReviewTextInput) => {
-      previewReviewText.val = onReviewTextInput.target.value;
+      previewReview.val = { stars: 0, text: onReviewTextInput.target.value, createdAt: Date.now() }
     }
   });
   const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5 });
@@ -274,11 +273,11 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   const reviewStarButtons = ReviewStarButtons({ setNumStars });
 
   // TODO: Fix preview being hidden when "Hide reviews" is selected
-  const tempReviewToPreview = { stars: 0, text: previewReviewText.val, createdAt: Date.now() }
+
   // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
   const reviewPreview = div(
     { class: "chat-bubble review" },
-    div(previewReviewText)
+    div(van.derive(() => previewReview.val.text))
   );
 
   const createReviewForm = form(
@@ -300,4 +299,8 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   // const updateTextBtn = button({onclick: () => previewReviewText.val+= "a"}, "Add 'a'")
 
   return div(reviewPreview, createReviewForm);
+}
+
+function Preview(review) {
+
 }
