@@ -294,12 +294,9 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
 }
 
 function Preview() {
+  const text = van.derive(() => previewReview.val.text);
 
-  const { div, p } = van.tags;
-
-  const reviewText = p(van.derive(() => previewReview.val.text));
-
-  const reviewStars = previewReview.val.stars;
+  const stars = previewReview.val.stars;
 
   // TODO: When it's time to change any of these, abstract as a whole
   const createdAtDate = new Date(previewReview.val.createdAt);
@@ -309,9 +306,10 @@ function Preview() {
     timeZone: 'America/Los_Angeles',
   }).format(createdAtDate);
 
+  const review = { text, stars, createdAt };
 // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
-  return div(
+  return van.tags.div(
     { class: "chat-bubble review" },
-    div(reviewText, reviewStars, createdAt)
+    Review({ review })
   );
 }
