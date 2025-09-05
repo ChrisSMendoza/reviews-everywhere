@@ -313,6 +313,7 @@ function ReviewPreview() {
   // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
   return van.tags.div(
     { class: "chat-bubble review" },
+    // Note, state-derived child node ensures it re-renders on update
     () => Review({ review: previewReview.val }),
   );
 }
