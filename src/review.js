@@ -238,8 +238,16 @@ export const StarSolid = () =>
     }),
   );
 
-const previewReview = van.state({ stars: 0, text: "", createdAt: Date.now() });
 
+const previewReview = van.state(getReviewDefault());
+
+export function resetPreviewReview() {
+  previewReview.val = getReviewDefault();
+}
+// Function used so `Date.now` runs and provides the latest time
+function getReviewDefault() {
+  return { stars: 0, text: "", createdAt: Date.now() }
+}
 // TODO: Evaluate if this is really easier than plain ol' HTML
 // TODO: Need to enfore type being set
 // TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
