@@ -238,6 +238,9 @@ export const StarSolid = () =>
     }),
   );
 
+
+const previewReviewText = van.state("");
+
 // TODO: Evaluate if this is really easier than plain ol' HTML
 // TODO: Need to enfore type being set
 // TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
@@ -265,6 +268,14 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   }
   const reviewStarButtons = ReviewStarButtons({ setNumStars });
 
+  // TODO: Fix preview being hidden when "Hide reviews" is selected
+  const tempReviewToPreview = { stars: 0, text: previewReviewText.val, createdAt: Date.now() }
+  // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
+  const reviewPreview = div(
+    { class: "chat-bubble review" },
+    Review({ review: tempReviewToPreview })
+  );
+
   const createReviewForm = form(
     {
       method: "post",
@@ -281,5 +292,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
     submitButton
   );
 
-  return div(div("This will be a preview"), createReviewForm);
+  // const updateTextBtn = button({onclick: () => previewReviewText.val+= "a"}, "Add 'a'")
+
+  return div(reviewPreview, createReviewForm);
 }
