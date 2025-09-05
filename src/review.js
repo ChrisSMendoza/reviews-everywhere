@@ -281,8 +281,6 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   }
   const reviewStarButtons = ReviewStarButtons({ setNumStars });
 
-  // TODO: Fix preview being hidden when "Hide reviews" is selected
-
   const createReviewForm = form(
     {
       method: "post",
@@ -298,7 +296,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
     typeInput,
     submitButton
   );
-
+  // TODO: Fix preview being hidden when "Hide reviews" is selected
   return div(Preview(), createReviewForm);
 }
 
