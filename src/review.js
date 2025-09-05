@@ -249,7 +249,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   const reviewTextInput = input({
     name: "text",
     oninput: (onReviewTextInput) => {
-      previewReview.val = { stars: 0, text: onReviewTextInput.target.value, createdAt: Date.now() }
+      previewReview.val = { ...previewReview.val, text: onReviewTextInput.target.value }
     }
   });
   const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5 });
