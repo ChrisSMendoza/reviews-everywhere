@@ -269,6 +269,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
 
   function setNumStars(numStars) {
     numStarsInput.value = numStars;
+    previewReview.val = { ...previewReview.val, stars: numStars }
   }
   const reviewStarButtons = ReviewStarButtons({ setNumStars });
 
@@ -296,7 +297,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
 function Preview() {
   const text = van.derive(() => previewReview.val.text);
 
-  const stars = previewReview.val.stars;
+  const stars = van.derive(() => previewReview.val.stars);
 
   const createdAt = previewReview.val.createdAt;
 
@@ -304,6 +305,8 @@ function Preview() {
   // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
   return van.tags.div(
     { class: "chat-bubble review" },
-    Review({ review })
+    Review({ review }),
+
+    () => ReviewStars({ stars: stars.val })
   );
 }
