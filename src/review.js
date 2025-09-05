@@ -242,7 +242,7 @@ export const StarSolid = () =>
 // TODO: Need to enfore type being set
 // TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
 export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType }) {
-  const { button, form, input } = van.tags;
+  const { button, div, form, input } = van.tags;
 
   const reviewTextInput = input({ name: "text" });
   const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5 });
@@ -265,7 +265,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   }
   const reviewStarButtons = ReviewStarButtons({ setNumStars });
 
-  return form(
+  const createReviewForm = form(
     {
       method: "post",
       action,
@@ -280,4 +280,6 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
     typeInput,
     submitButton
   );
+
+  return div(div("This will be a preview"), createReviewForm);
 }
