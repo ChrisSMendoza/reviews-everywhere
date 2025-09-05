@@ -274,12 +274,6 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
 
   // TODO: Fix preview being hidden when "Hide reviews" is selected
 
-  // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
-  const reviewPreview = div(
-    { class: "chat-bubble review" },
-    div(van.derive(() => previewReview.val.text))
-  );
-
   const createReviewForm = form(
     {
       method: "post",
@@ -296,11 +290,28 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
     submitButton
   );
 
-  // const updateTextBtn = button({onclick: () => previewReviewText.val+= "a"}, "Add 'a'")
-
-  return div(reviewPreview, createReviewForm);
+  return div(Preview(), createReviewForm);
 }
 
-function Preview(review) {
+function Preview() {
 
+  const { div, p } = van.tags;
+
+  const reviewText = p(van.derive(() => previewReview.val.text));
+
+  const reviewStars = previewReview.val.stars;
+
+  // TODO: When it's time to change any of these, abstract as a whole
+  const createdAtDate = new Date(previewReview.val.createdAt);
+  const createdAt = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    timeZone: 'America/Los_Angeles',
+  }).format(createdAtDate);
+
+// TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
+  return div(
+    { class: "chat-bubble review" },
+    div(reviewText, reviewStars, createdAt)
+  );
 }
