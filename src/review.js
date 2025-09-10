@@ -244,6 +244,7 @@ const previewReview = van.state(getReviewDefault());
 export function resetPreviewReview() {
   previewReview.val = getReviewDefault();
 }
+// TODO: Add return type
 // Function used so `Date.now` runs and provides the latest time
 function getReviewDefault() {
   return { stars: 0, text: "", createdAt: Date.now() }
@@ -305,11 +306,11 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
     typeInput,
     submitButton
   );
-  // TODO: Fix preview being hidden when "Hide reviews" is selected
-  return div(ReviewPreview(), createReviewForm);
+
+  return createReviewForm
 }
 
-function ReviewPreview() {
+export function ReviewPreview() {
   // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
   return van.tags.div(
     { class: "chat-bubble review" },

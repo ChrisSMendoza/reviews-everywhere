@@ -1,7 +1,7 @@
 import van from "vanjs-core";
 
 import { BASE_URL } from "./api-client.js";
-import { CreateReviewForm, Overlay, OverlayReview, resetPreviewReview } from "./review.js";
+import { CreateReviewForm, Overlay, OverlayReview, ReviewPreview, resetPreviewReview } from "./review.js";
 
 /**
  * @param {MouseEvent} event
@@ -73,7 +73,9 @@ export function onDocumentClick(event) {
   });
   // TODO: Share static `id` with `removeReviewMenu`? Only place it's used, maybe if used again...
   const overlayReviewMenu = Overlay({
-    children: createReviewForm,
+    // TODO: Fix preview being hidden when "Hide reviews" is selected? Not huge issue..
+    // TODO: Connect these, state is hidden here..
+    children: van.tags.div(ReviewPreview(), createReviewForm),
     id: "add-review-overlay",
     position,
   });
