@@ -262,15 +262,15 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   // when form and preview are moved
   const reviewTextInput = input({
     name: "text",
-    value: reviewState.val.text,
-    oninput: (onReviewTextInput) => {
+    value: reviewState ? reviewState.val.text : "",
+    oninput: reviewState ? (onReviewTextInput) => {
       reviewState.val = { ...reviewState.val, text: onReviewTextInput.target.value }
-    },
+    } : null,
   });
   const numStarsInput = input({
     name: "stars",
     type: "number",
-    value: reviewState.val.stars,
+    value: reviewState ? reviewState.val.stars : null,
     min: 1,
     max: 5
   });
@@ -290,7 +290,10 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
 
   function setNumStars(numStars) {
     numStarsInput.value = numStars;
-    reviewState.val = { ...reviewState.val, stars: numStars }
+
+    if(reviewState) {
+      reviewState.val = { ...reviewState.val, stars: numStars }
+    }
   }
   const reviewStarButtons = ReviewStarButtons({ setNumStars });
 

@@ -151,9 +151,6 @@ const timelineReviewForm = CreateReviewForm({
   onclick: stopPropagationOnClick,
   // Timeline reviews don't need a position, they're always in the sidebar
   position: { left: "", top: "" },
-
-  // TODO: Temporary, shouldn't be needed to work here
-  reviewState: { val: {} }
 });
 
 van.add(document.body, timelineReviewForm);
