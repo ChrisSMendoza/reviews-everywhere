@@ -244,30 +244,33 @@ const previewReview = van.state(getReviewDefault());
 export function resetPreviewReview() {
   previewReview.val = getReviewDefault();
 }
-// TODO: Add return type
+
 // Function used so `Date.now` runs and provides the latest time
-function getReviewDefault() {
+/**
+ * @returns {Review} The parsed URL that's saved onto the `Review`. Used as reference when loading onto page. Note, query parameters are ignored.
+ */
+export function getReviewDefault() {
   return { stars: 0, text: "", createdAt: Date.now() }
 }
 // TODO: Evaluate if this is really easier than plain ol' HTML
 // TODO: Need to enfore type being set
 // TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
-export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType }) {
-  const { button, div, form, input } = van.tags;
+export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType, reviewState }) {
+  const { button, form, input } = van.tags;
 
   // Use preview review state as `value` so `text` and `stars` are persisted
   // when form and preview are moved
   const reviewTextInput = input({
     name: "text",
-    value: previewReview.val.text,
+    value: reviewState.val.text,
     oninput: (onReviewTextInput) => {
-      previewReview.val = { ...previewReview.val, text: onReviewTextInput.target.value }
-    }
+      reviewState.val = { ...reviewState.val, text: onReviewTextInput.target.value }
+    },
   });
   const numStarsInput = input({
     name: "stars",
     type: "number",
-    value: previewReview.val.stars,
+    value: reviewState.val.stars,
     min: 1,
     max: 5
   });
@@ -287,7 +290,7 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
 
   function setNumStars(numStars) {
     numStarsInput.value = numStars;
-    previewReview.val = { ...previewReview.val, stars: numStars }
+    reviewState.val = { ...reviewState.val, stars: numStars }
   }
   const reviewStarButtons = ReviewStarButtons({ setNumStars });
 
@@ -310,11 +313,11 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
   return createReviewForm
 }
 
-export function ReviewPreview() {
+export function ReviewPreview(review) {
   // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
   return van.tags.div(
     { class: "chat-bubble review" },
     // Note, state-derived child node ensures it re-renders on update
-    () => Review({ review: previewReview.val }),
+    Review({ review }),
   );
 }
