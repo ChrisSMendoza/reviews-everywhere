@@ -238,14 +238,42 @@ export const StarSolid = () =>
     }),
   );
 
+
+const previewReview = van.state(getReviewDefault());
+
+export function resetPreviewReview() {
+  previewReview.val = getReviewDefault();
+}
+
+// Function used so `Date.now` runs and provides the latest time
+/**
+ * @returns {Review} The parsed URL that's saved onto the `Review`. Used as reference when loading onto page. Note, query parameters are ignored.
+ */
+export function getReviewDefault() {
+  return { stars: 0, text: "", createdAt: Date.now() }
+}
 // TODO: Evaluate if this is really easier than plain ol' HTML
 // TODO: Need to enfore type being set
 // TODO: Add JSDoc type? Is it needed? VSCode might infer it, but it's buggy
-export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType }) {
+export function CreateReviewForm({ action, onclick, onsubmit, position, reviewType, reviewState }) {
   const { button, form, input } = van.tags;
 
-  const reviewTextInput = input({ name: "text" });
-  const numStarsInput = input({ name: "stars", type: "number", min: 1, max: 5 });
+  // Use preview review state as `value` so `text` and `stars` are persisted
+  // when form and preview are moved
+  const reviewTextInput = input({
+    name: "text",
+    value: reviewState ? reviewState.val.text : "",
+    oninput: reviewState ? (onReviewTextInput) => {
+      reviewState.val = { ...reviewState.val, text: onReviewTextInput.target.value }
+    } : null,
+  });
+  const numStarsInput = input({
+    name: "stars",
+    type: "number",
+    value: reviewState ? reviewState.val.stars : null,
+    min: 1,
+    max: 5
+  });
 
   const topInput = input({ name: "top", type: "hidden", value: position.top });
   const leftInput = input({
@@ -262,10 +290,14 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
 
   function setNumStars(numStars) {
     numStarsInput.value = numStars;
+
+    if(reviewState) {
+      reviewState.val = { ...reviewState.val, stars: numStars }
+    }
   }
   const reviewStarButtons = ReviewStarButtons({ setNumStars });
 
-  return form(
+  const createReviewForm = form(
     {
       method: "post",
       action,
@@ -279,5 +311,16 @@ export function CreateReviewForm({ action, onclick, onsubmit, position, reviewTy
     leftInput,
     typeInput,
     submitButton
+  );
+
+  return createReviewForm
+}
+
+export function ReviewPreview(review) {
+  // TODO: Copied from above. Abstract this cleaner, new component? For just a CSS class..?
+  return van.tags.div(
+    { class: "chat-bubble review" },
+    // Note, state-derived child node ensures it re-renders on update
+    Review({ review }),
   );
 }

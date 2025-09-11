@@ -97,6 +97,8 @@ function setSettings({ shouldOpenReviewMenuOnClick, shouldShowReviews }) {
 // Add extension settings menu with previously saved state (or defaults)
 van.add(document.body, SettingsMenu({ shouldOpenReviewMenuOnClick, shouldShowReviews, setSettings }));
 
+// TODO: Remove Preview from appearing above this form, only meant for `overlay` type.
+//  Could have its own preview, but that would use its own state (keep them separate)
 // TODO: Abstract the parts that are duplicated here and the document onclick handler
 // Timeline review form
 const createReviewUrl = `${BASE_URL}/review`;

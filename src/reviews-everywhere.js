@@ -1,7 +1,15 @@
 import van from "vanjs-core";
 
 import { BASE_URL } from "./api-client.js";
-import { CreateReviewForm, Overlay, OverlayReview } from "./review.js";
+import { CreateReviewForm, Overlay, OverlayReview, ReviewPreview, getReviewDefault } from "./review.js";
+
+
+const previewReviewState = van.state(getReviewDefault());
+
+// TODO: Export needed?
+export function resetPreviewReview() {
+  previewReviewState.val = getReviewDefault();
+}
 
 /**
  * @param {MouseEvent} event
@@ -17,8 +25,6 @@ export function onDocumentClick(event) {
 
   const createReviewUrl = `${BASE_URL}/review`;
 
-  // We stop the click event from bubbling up so
-  // the form doesn't move when the user clicks it
   const createReviewForm = CreateReviewForm({
     // Guess the action would only benefit when JS is disabled? Do extensions run in that case (different runtime?)?
     action: createReviewUrl,
@@ -50,9 +56,6 @@ export function onDocumentClick(event) {
       const createReviewResponse = await fetch(createReviewRequest);
 
       if (createReviewResponse.ok) {
-        // Hide the Review Menu to show the new review
-        removeReviewMenu();
-
         const review = await createReviewResponse.json();
 
         const overlayReview = OverlayReview({
@@ -62,16 +65,30 @@ export function onDocumentClick(event) {
 
         van.add(document.body, overlayReview);
 
+        // Hide the Review Menu to show the new review
+        removeReviewMenu();
+
+        // Reset Preview Review state to initial values for the next entry
+        resetPreviewReview();
       } else {
         console.error("Failed to create review", createReviewResponse);
       }
     },
+
+    // We stop the click event from bubbling up so the form doesn't move when the user clicks it
     onclick: stopPropagationOnClick,
+
     position,
+
+    reviewState: previewReviewState
   });
   // TODO: Share static `id` with `removeReviewMenu`? Only place it's used, maybe if used again...
   const overlayReviewMenu = Overlay({
-    children: createReviewForm,
+    // TODO: Fix preview being hidden when "Hide reviews" is selected? Not huge issue..
+    children: van.tags.div(
+      () => ReviewPreview(previewReviewState.val),
+      createReviewForm
+    ),
     id: "add-review-overlay",
     position,
   });
