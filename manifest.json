@@ -9,6 +9,10 @@
     "default_title": "Messages Everywhere"
   },
 
+  "background": {
+    "scripts": ["src/extension-background.js"]
+  },
+
   "content_scripts": [
     {
       "matches": ["*://*/*"],
