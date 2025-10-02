@@ -2,6 +2,7 @@
 
 console.log("`extension-background.js` has ran!");
 
+// TODO: Think of new name for general "message" posted on a webpage to distuingish from extension messages (and others since so generic). postIt? placement?
 const FETCH_MESSAGES_ACTION = "fetchMessages"
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
