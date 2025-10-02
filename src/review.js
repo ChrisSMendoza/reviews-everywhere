@@ -8,6 +8,9 @@ import { onDocumentClick, removeReviewMenu } from "./reviews-everywhere";
  * @property {string} text - What the user had to say
  * @property {number} stars - Number of stars, out of 5
  * @property {Date} createdAt - When the review was created
+ * @property {'overlay' | 'timeline'} type
+ * @property {Position['top']} top
+ * @property {Position['left']} left
  */
 
 /**
@@ -323,4 +326,24 @@ export function ReviewPreview(review) {
     // Note, state-derived child node ensures it re-renders on update
     Review({ review }),
   );
+}
+
+/**
+ *
+ * @param {{ reviews: Review[] }} options
+ * @returns
+ */
+export function renderReviews({ reviews }) {
+    const overlayReviews = reviews
+        .filter(r => r.type === 'overlay')
+        .map((review) =>
+            OverlayReview({
+                review,
+                position: { left: review.left, top: review.top },
+            }),
+    );
+    // Show them to the user
+    overlayReviews.forEach((overlayReview) =>
+      van.add(document.body, overlayReview),
+    );
 }

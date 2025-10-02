@@ -19,6 +19,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         console.log("Background: Fetching reviews");
 
         fetchReviews({ windowHref: sender.url })
+            // TODO: Add types for messageResult: { success: true, data: T } | { success: false, error: Error }
             .then(reviews => {
                 console.log("Background: Reviews fetched successfully");
                 sendResponse({ success: true, reviews })
@@ -40,6 +41,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 async function fetchReviews(options) {
+    // TODO: Have this come from `.env`, requires possibly two build inputs (which I've failed at before..)
     const BASE_URL = "https://b73efe21c6c4.ngrok-free.app";
     const getReviewsRequest = new URL(`${BASE_URL}/reviews`);
 
