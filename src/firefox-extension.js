@@ -1,4 +1,6 @@
 
-browser.runtime.sendMessage({ action: "fetchMessages" }, (response) => {
-  console.log("Content script: response from background", response);
+const sending = browser.runtime.sendMessage({
+    action: "fetchMessages",
 });
+
+sending.then(console.log, console.error);
