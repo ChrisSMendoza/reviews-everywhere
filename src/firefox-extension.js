@@ -19,6 +19,7 @@ function handleFetchReviewsMessage(fetchReviewsResult) {
     if(fetchReviewsResult.success) {
         renderReviews(fetchReviewsResult);
     }
-
-    console.error("Background failed to respond to fetchMessages action", fetchReviewsResult.error);
+    else {
+        console.error("Background failed to respond to fetchMessages action", fetchReviewsResult.error);
+    }
 }
