@@ -1,5 +1,4 @@
-import { onDocumentClick } from "./reviews-everywhere.js";
 
-document.addEventListener("click", onDocumentClick);
-
-console.log("Reviews Everywhere - LOADED");
+browser.runtime.sendMessage({ action: "fetchData", url: "https://api.example.com/data" }, (response) => {
+  console.log("Content script: response from background", response);
+});
