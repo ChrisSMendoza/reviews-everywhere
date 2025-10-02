@@ -1,21 +1,27 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "Reviews Everywhere",
   "version": "0.0",
 
   "description": "Provides reviews to any website",
 
+  "action": {
+    "default_title": "Messages Everywhere"
+  },
+
+  "background": {
+    "scripts": ["src/extension-background.js"]
+  },
+
   "content_scripts": [
     {
       "matches": ["*://*/*"],
-      "//": "TODO: Probably should be firefox-extension.js...",
-      "js": ["dist/main.js"],
+      "js": ["dist/firefox-extension.js"],
       "css": ["src/style.css"]
     }
   ],
 
   "permissions": [
-    "storage",
-    "https://282e-2600-1700-5b24-a090-211f-4802-68b7-33a5.ngrok-free.app/*"
+    "storage"
   ]
 }
