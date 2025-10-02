@@ -21,8 +21,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         fetchReviews({ windowHref: sender.url })
             .then(reviews => sendResponse({ reviews }))
             .catch(error => {
-                // TODO: Better logging, this doesn't show the response attached in `fetchReviews`
-                console.error(error);
+                // Logging `error` only won't show response, `error.response` must be logged separately
+                console.error(error, error?.response);
                 sendResponse({ success: false, error });
             }); // Runs the success handler on other side, rather have error
 
@@ -33,7 +33,7 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage#sending_an_asynchronous_response_using_sendresponse
     return true;
 });
-// TODO: Revisit pattern, don't like that error isn't handled and we're giving back null. Throw instead?
+
 async function fetchReviews(options) {
     const BASE_URL = "https://b73efe21c6c4.ngrok-free.app";
     const getReviewsRequest = new URL(`${BASE_URL}/reviews`);
@@ -51,8 +51,13 @@ async function fetchReviews(options) {
     }
 
     const fetchReviewsError = Error("Failed to fetch reviews");
-    // TODO: Better logging, this doesn't show when provided to `console.error`
-    fetchReviewsError.response = reviewsResponse;
+
+    // Create copy of values so they're enumerable, meaning they can be logged
+    fetchReviewsError.response = {
+        status: reviewsResponse.status,
+        statusText: reviewsResponse.statusText,
+        url: reviewsResponse.url
+    };
 
     throw fetchReviewsError;
 }
