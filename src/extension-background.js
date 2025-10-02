@@ -54,13 +54,7 @@ async function fetchReviews(options) {
     }
 
     const fetchReviewsError = Error("Failed to fetch reviews");
-
-    // Create copy of values so they're enumerable, meaning they can be logged
-    fetchReviewsError.response = {
-        status: reviewsResponse.status,
-        statusText: reviewsResponse.statusText,
-        url: reviewsResponse.url
-    };
+    fetchReviewsError.response = reviewsResponse;
 
     throw fetchReviewsError;
 }
