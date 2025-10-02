@@ -19,7 +19,10 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
         console.log("Background: Fetching reviews");
 
         fetchReviews({ windowHref: sender.url })
-            .then(reviews => sendResponse({ success: true, reviews }))
+            .then(reviews => {
+                console.log("Background: Reviews fetched successfully");
+                sendResponse({ success: true, reviews })
+            })
 
             .catch(error => {
                 // Logging `error` only won't show response, `error.response` must be logged separately
@@ -44,8 +47,6 @@ async function fetchReviews(options) {
     const reviewsResponse = await fetch(getReviewsRequest);
 
     if (reviewsResponse.ok) {
-        console.log("Background: reviews fetched successfully");
-
         const reviews = await reviewsResponse.json();
 
         return reviews;
