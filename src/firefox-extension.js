@@ -1,4 +1,4 @@
 
-browser.runtime.sendMessage({ action: "fetchData", url: "https://api.example.com/data" }, (response) => {
+browser.runtime.sendMessage({ action: "fetchMessages" }, (response) => {
   console.log("Content script: response from background", response);
 });

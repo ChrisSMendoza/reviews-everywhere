@@ -1,6 +1,7 @@
 
 console.log("`extension-background.js` has ran!");
 
+const FETCH_MESSAGES_ACTION = "fetchMessages"
 
 browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log("Background script: onMessage");
@@ -12,8 +13,8 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     console.log("Background script: sender:", sender)
 
-    if (message.action === "fetchData") {
-        console.log("Background received fetchData message");
+    if (message.action === FETCH_MESSAGES_ACTION) {
+        console.log(`Background received ${FETCH_MESSAGES_ACTION} action`);
 
         return true; // Indicates that sendResponse will be called asynchronously
     }
