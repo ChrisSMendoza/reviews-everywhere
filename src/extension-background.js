@@ -27,8 +27,9 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
             .catch(error => {
                 // Logging `error` only won't show response, `error.response` must be logged separately
                 console.error(error, error?.response);
+                // Runs the success handler in content script (`firefox-extension.js`), but I'd rather have the error callback used..
                 sendResponse({ success: false, error });
-            }); // Runs the success handler on other side, rather have error
+            });
 
         // NOTE: Using `return` with response Promise doesn't seem to send it to client listener (maybe because it can't be serialized, but no error shown)
     }
