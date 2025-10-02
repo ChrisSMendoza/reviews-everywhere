@@ -18,9 +18,13 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.action === FETCH_MESSAGES_ACTION) {
         console.log("Background: Fetching reviews");
 
-        // TODO: Add catch here, can we just throw in fetchReviews?
         fetchReviews({ windowHref: sender.url })
             .then(reviews => sendResponse({ reviews }))
+            .catch(error => {
+                // TODO: Better logging, this doesn't show the response attached in `fetchReviews`
+                console.error(error);
+                sendResponse({ success: false, error });
+            }); // Runs the success handler on other side, rather have error
 
         // NOTE: Using `return` with response Promise doesn't seem to send it to client listener (maybe because it can't be serialized, but no error shown)
     }
@@ -46,6 +50,9 @@ async function fetchReviews(options) {
         return reviews;
     }
 
-    // TODO: Attach response: reviewsResponse
-    throw Error("Reviews failed to fetch");
+    const fetchReviewsError = Error("Failed to fetch reviews");
+    // TODO: Better logging, this doesn't show when provided to `console.error`
+    fetchReviewsError.response = reviewsResponse;
+
+    throw fetchReviewsError;
 }
