@@ -15,12 +15,28 @@ browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log("Background script: sender:", sender)
 
     if (message.action === FETCH_MESSAGES_ACTION) {
-        // console.log("Fetching reviews", { getReviewsRequest });
+        console.log(`Background received ${FETCH_MESSAGES_ACTION} action`);
+        const BASE_URL = "https://b73efe21c6c4.ngrok-free.app";
+        const getReviewsRequest = new URL(`${BASE_URL}/reviews`);
 
-        // Don't seem to get the response object back..
-        // return fetch(getReviewsRequest);
+        getReviewsRequest.searchParams.append("windowHref", sender.url);
 
-        sendResponse({ baseURL: BASE_URL, windowHref: sender.url });
+        console.log("Fetching reviews", { getReviewsRequest });
+
+        // Using `return` doesn't seem to get send the response object (maybe because it can't be serialized, but no error shown)
+        fetch(getReviewsRequest)
+            .then(res => {
+
+                if(res.ok) {
+                    console.log("Background: reviews fetched successfully");
+
+                    res.json().then(reviews => {
+                        console.log("Background: reviews as JSON", reviews);
+
+                        sendResponse({ reviews, windowHref: sender.url });
+                    })
+                }
+            });
     }
 
     // This is needed to run an asynchronous task with `sendResponse` on both Firefox and Chrome
