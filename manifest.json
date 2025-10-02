@@ -21,8 +21,6 @@
     }
   ],
 
-  "host_permissions": ["*://b73efe21c6c4.ngrok-free.app/*"],
-
   "permissions": [
     "storage"
   ]
