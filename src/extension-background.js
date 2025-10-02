@@ -46,6 +46,6 @@ async function fetchReviews(options) {
         return reviews;
     }
 
-    console.warn("Bad status when fetching reviews", reviewsResponse);
-    return null;
+    // TODO: Attach response: reviewsResponse
+    throw Error("Reviews failed to fetch");
 }
