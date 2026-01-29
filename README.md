@@ -2,7 +2,7 @@
 
 A Firefox extension to leave reviews on any website.
 
-![Demo: Create Reviews](https://gist.github.com/user-attachments/assets/ea65d595-4630-47f7-a93a-5ceee574ab93)
+![Demo: Create Reviews](https://github.com/user-attachments/assets/071ab82d-30f3-4e39-86a8-9b766a2a910c)
 
 ## Development
 
